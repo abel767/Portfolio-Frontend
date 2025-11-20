@@ -3,12 +3,12 @@ import {Home, User, Code, Briefcase, Mail, Terminal, FolderOpen} from 'lucide-re
 export function Dock({ onIconClick, openWindows}){
     const dockItems = [
         {id: 'home', icon: Home, label: 'Home'},
-        {id: 'about', icon: Home, label: 'About'},
-        {id: 'skills', icon: Home, label: 'Skills'},
-        {id: 'projects', icon: Home, label: 'Projects'},
-        {id: 'contact', icon: Home, label: 'Contact'},
-        {id: 'terminal', icon: Home, label: 'Terminal'},
-        {id: 'files', icon: Home, label: 'Files'},
+        {id: 'about', icon: User, label: 'About'},
+        {id: 'skills', icon: Code, label: 'Skills'},
+        {id: 'projects', icon: Briefcase, label: 'Projects'},
+        {id: 'contact', icon: Mail, label: 'Contact'},
+        {id: 'terminal', icon: Terminal, label: 'Terminal'},
+        {id: 'files', icon: FolderOpen, label: 'Files'},
     ]
  return (
     <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center pb-3">

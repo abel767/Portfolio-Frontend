@@ -23,7 +23,7 @@ export function TopBar(){
     }
 
     const formatDate = (date) =>{
-        return date.toLocalDateString('en-US', {
+        return date.toLocaleDateString('en-US', {
             Weekday: 'short',
             month: 'short',
             day: 'numeric'
