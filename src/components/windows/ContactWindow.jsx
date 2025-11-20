@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, User, MessageSquare, Send } from 'lucide-react';
+import { Mail, User, MessageSquare, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 export function ContactWindow() {
   const [formData, setFormData] = useState({
@@ -7,10 +7,50 @@ export function ContactWindow() {
     email: '',
     message: '',
   });
+  
+  const [status, setStatus] = useState({
+    loading: false,
+    success: false,
+    error: null,
+  });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setStatus({ loading: true, success: false, error: null });
+
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus({ loading: false, success: true, error: null });
+        setFormData({ name: '', email: '', message: '' }); // Reset form
+        
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+          setStatus({ loading: false, success: false, error: null });
+        }, 5000);
+      } else {
+        setStatus({
+          loading: false,
+          success: false,
+          error: data.message || 'Failed to send message',
+        });
+      }
+    } catch (error) {
+      setStatus({
+        loading: false,
+        success: false,
+        error: 'Network error. Please check if the server is running.',
+      });
+    }
   };
 
   const handleChange = (e) => {
@@ -44,7 +84,8 @@ export function ContactWindow() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2.5 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg text-white focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all"
+              disabled={status.loading}
+              className="w-full px-4 py-2.5 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg text-white focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               placeholder="Your name"
             />
           </div>
@@ -62,7 +103,8 @@ export function ContactWindow() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2.5 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg text-white focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all"
+              disabled={status.loading}
+              className="w-full px-4 py-2.5 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg text-white focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               placeholder="your.email@example.com"
             />
           </div>
@@ -80,18 +122,45 @@ export function ContactWindow() {
               onChange={handleChange}
               required
               rows={4}
-              className="w-full px-4 py-2.5 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg text-white focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all resize-none"
+              disabled={status.loading}
+              className="w-full px-4 py-2.5 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg text-white focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all resize-none disabled:opacity-50 disabled:cursor-not-allowed"
               placeholder="Tell me about your project..."
             />
           </div>
 
+          {/* Success message */}
+          {status.success && (
+            <div className="flex items-center gap-2 p-4 bg-green-500/10 border border-green-500/30 rounded-lg text-green-400">
+              <CheckCircle className="w-5 h-5 flex-shrink-0" />
+              <span>Message sent successfully! I'll get back to you soon.</span>
+            </div>
+          )}
+
+          {/* Error message */}
+          {status.error && (
+            <div className="flex items-center gap-2 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400">
+              <AlertCircle className="w-5 h-5 flex-shrink-0" />
+              <span>{status.error}</span>
+            </div>
+          )}
+
           {/* Submit button */}
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded-lg transition-colors border border-cyan-500/30"
+            disabled={status.loading}
+            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded-lg transition-colors border border-cyan-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Send className="w-4 h-4" />
-            <span>Send Message</span>
+            {status.loading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+                <span>Sending...</span>
+              </>
+            ) : (
+              <>
+                <Send className="w-4 h-4" />
+                <span>Send Message</span>
+              </>
+            )}
           </button>
         </form>
       </div>

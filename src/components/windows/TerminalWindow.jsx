@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 export function TerminalWindow() {
   const [lines, setLines] = useState([]);
-
+  
   const terminalLines = [
     '$ whoami',
     'abel@portfolio:~$ Full-stack MERN Developer',
@@ -24,7 +24,7 @@ export function TerminalWindow() {
     '',
     '$ _',
   ];
-
+  
   useEffect(() => {
     let currentIndex = 0;
     const interval = setInterval(() => {
@@ -35,10 +35,10 @@ export function TerminalWindow() {
         clearInterval(interval);
       }
     }, 200);
-
+    
     return () => clearInterval(interval);
   }, []);
-
+  
   return (
     <div className="p-6 min-h-[400px] bg-black/90 font-mono text-sm">
       <div className="space-y-1">
@@ -46,8 +46,8 @@ export function TerminalWindow() {
           <div 
             key={index}
             className={`
-              ${line.startsWith('$') ? 'text-cyan-400' : 'text-green-400/90'}
-              ${line.includes('drwxr-xr-x') ? 'text-blue-400/80 pl-2' : ''}
+              ${line?.startsWith('$') ? 'text-cyan-400' : 'text-green-400/90'}
+              ${line?.includes('drwxr-xr-x') ? 'text-blue-400/80 pl-2' : ''}
               ${line === '' ? 'h-3' : ''}
             `}
           >

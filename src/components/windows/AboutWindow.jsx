@@ -17,29 +17,16 @@ export function AboutWindow() {
         {/* Bio */}
         <div className="flex-1 space-y-5">
           <h2 className="text-white text-3xl">About Me</h2>
-          
-          <div className="space-y-4 text-[#B0B0B0] leading-relaxed">
-            <p>
-              I'm a passionate full-stack developer specializing in the MERN stack. 
-              I build scalable web applications with modern technologies and best practices.
-            </p>
-            
-            <p>
-              Currently expanding into cybersecurity, learning to identify vulnerabilities 
-              and implement secure coding practices to protect applications from threats.
-            </p>
-          </div>
-          <div className="pt-4 flex flex-wrap gap-2">
-            <span className="px-4 py-1.5 bg-white/5 border border-[#2A2A2A] rounded-lg text-white/80 text-sm">
-              Problem Solver
-            </span>
-            <span className="px-4 py-1.5 bg-white/5 border border-[#2A2A2A] rounded-lg text-white/80 text-sm">
-              Quick Learner
-            </span>
-            <span className="px-4 py-1.5 bg-white/5 border border-[#2A2A2A] rounded-lg text-white/80 text-sm">
-              Team Player
-            </span>
-          </div>
+<div className="space-y-4 text-[#B0B0B0] leading-relaxed">
+    <p>
+        Hey there! I'm a fresh face in the Cybersecurity world, certified with my CSA/CICSA, and totally pumped to jump into a Security Analyst role. I'm on the lookout for awesome opportunities where I can put my skills to work right away.
+    </p>
+    
+    <p>
+       I learn by doing! My portfolio demonstrates hands-on expertise in building security pipelines, focusing on centralized threat tracking and automating incident response workflows. Plus, I have a background in the MERN stack, giving me a solid coding foundation to understand application vulnerabilities. I'm ready to contribute immediately to optimizing security operations and defense strategies.
+    </p>
+</div>
+
         </div>
       </div>
     </div>

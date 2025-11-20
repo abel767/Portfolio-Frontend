@@ -3,11 +3,13 @@ import { useState, useRef, useEffect } from 'react';
 export function Window({ 
   title, 
   children, 
-  onClose, 
+  onClose,
+  onMinimize,
   onFocus, 
   zIndex, 
   defaultPosition = { x: 100, y: 100 },
-  defaultSize = { width: 800, height: 600 }
+  defaultSize = { width: 800, height: 600 },
+  isMinimizing = false
 }) {
   const [position, setPosition] = useState(defaultPosition);
   const [size, setSize] = useState(defaultSize);
@@ -17,8 +19,16 @@ export function Window({
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isMaximized, setIsMaximized] = useState(false);
   const [preMaximizeState, setPreMaximizeState] = useState(null);
+  const [isOpening, setIsOpening] = useState(true);
   
   const windowRef = useRef(null);
+
+  // Opening animation
+  useEffect(() => {
+    setIsOpening(true);
+    const timer = setTimeout(() => setIsOpening(false), 400);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleMouseDown = (e) => {
     if (e.target.closest('.window-controls') || e.target.closest('.resize-handle')) return;
@@ -44,15 +54,13 @@ export function Window({
 
   const handleMaximize = () => {
     if (isMaximized) {
-      // Restore
       setPosition(preMaximizeState.position);
       setSize(preMaximizeState.size);
       setIsMaximized(false);
     } else {
-      // Maximize
       setPreMaximizeState({ position, size });
-      setPosition({ x: 0, y: 0 });
-      setSize({ width: window.innerWidth, height: window.innerHeight });
+      setPosition({ x: 0, y: 40 });
+      setSize({ width: window.innerWidth, height: window.innerHeight - 40 });
       setIsMaximized(true);
     }
   };
@@ -115,13 +123,20 @@ export function Window({
   return (
     <div
       ref={windowRef}
-      className="fixed"
+      className={`fixed transition-all duration-10 ease-out ${
+        isOpening 
+          ? 'scale-95 opacity-0' 
+          : isMinimizing
+          ? 'scale-90 opacity-0 translate-y-20'
+          : 'scale-100 opacity-100'
+      }`}
       style={{
         left: isMaximized ? 0 : `${position.x}px`,
-        top: isMaximized ? 0 : `${position.y}px`,
+        top: isMaximized ? 40 : `${position.y}px`,
         width: `${size.width}px`,
         height: `${size.height}px`,
         zIndex,
+        transformOrigin: 'bottom center',
       }}
       onMouseDown={onFocus}
     >
@@ -139,6 +154,7 @@ export function Window({
               aria-label="Close"
             />
             <button
+              onClick={onMinimize}
               className="w-3 h-3 rounded-full bg-[#3A3A3A] hover:bg-yellow-500/80 transition-colors"
               aria-label="Minimize"
             />

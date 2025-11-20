@@ -2,7 +2,7 @@ import {Home, User, Code, Briefcase, Mail, Terminal, FolderOpen} from 'lucide-re
 
 export function Dock({ onIconClick, openWindows}){
     const dockItems = [
-        {id: 'home', icon: Home, label: 'Home'},
+        // {id: 'home', icon: Home, label: 'Home'},
         {id: 'about', icon: User, label: 'About'},
         {id: 'skills', icon: Code, label: 'Skills'},
         {id: 'projects', icon: Briefcase, label: 'Projects'},
@@ -29,10 +29,10 @@ export function Dock({ onIconClick, openWindows}){
                 <div
                   className={`
                     w-14 h-14 rounded-xl flex items-center justify-center
-                    transition-all duration-200 ease-out
+                    transition-all duration-300 ease-out
                     ${isOpen 
                       ? 'bg-white/10 scale-95' 
-                      : 'bg-white/5 hover:bg-white/10 hover:scale-110'
+                      : 'bg-white/5 hover:bg-white/10 hover:scale-110 hover:-translate-y-2'
                     }
                   `}
                 >
@@ -42,7 +42,6 @@ export function Dock({ onIconClick, openWindows}){
                     }`} 
                   />
                 </div>
-
                 {/* Tooltip */}
                 <div className="absolute -top-12 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                   <div className="bg-[#1A1A1A] backdrop-blur-sm px-3 py-1.5 rounded-lg border border-[#2A2A2A]">
@@ -52,7 +51,6 @@ export function Dock({ onIconClick, openWindows}){
                   </div>
                   <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#1A1A1A] border-r border-b border-[#2A2A2A] rotate-45"></div>
                 </div>
-
                 {/* Active indicator */}
                 {isOpen && (
                   <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-cyan-400"></div>

@@ -11,24 +11,43 @@ import { ProjectsWindow } from './components/windows/ProjectWindow'
 import { ContactWindow } from './components/windows/ContactWindow'
 import { TerminalWindow } from './components/windows/TerminalWindow'
 import { FileManagerWindow } from './components/windows/FileManagerWindow'
-import { BringToFront, Wind } from 'lucide-react'
-import { id } from 'date-fns/locale'
 
 export default function App() {
   const [openWindows, setOpenWindows] = useState([]);
   const [maxZIndex, setMaxZIndex] = useState(10);
 
   const openWindow = (id) => {
-    if (!openWindows.find(w => w.id === id)) {
-      setOpenWindows([...openWindows, { id, zIndex: maxZIndex + 1 }]);
+    const existingWindow = openWindows.find(w => w.id === id);
+    
+    if (!existingWindow) {
+      // Open new window
+      setOpenWindows([...openWindows, { id, zIndex: maxZIndex + 1, isMinimized: false }]);
       setMaxZIndex(maxZIndex + 1);
+    } else if (existingWindow.isMinimized) {
+      // Restore minimized window
+      restoreWindow(id);
     } else {
+      // Bring to front
       bringToFront(id);
     }
   };
 
   const closeWindow = (id) => {
     setOpenWindows(openWindows.filter(w => w.id !== id));
+  };
+
+  const minimizeWindow = (id) => {
+    setOpenWindows(openWindows.map(w => 
+      w.id === id ? { ...w, isMinimized: true } : w
+    ));
+  };
+
+  const restoreWindow = (id) => {
+    const newMaxZ = maxZIndex + 1;
+    setMaxZIndex(newMaxZ);
+    setOpenWindows(openWindows.map(w => 
+      w.id === id ? { ...w, isMinimized: false, zIndex: newMaxZ } : w
+    ));
   };
 
   const bringToFront = (id) => {
@@ -43,16 +62,21 @@ export default function App() {
     return openWindows.find(w => w.id === id)?.zIndex || 10;
   };
 
+  const isWindowMinimized = (id) => {
+    return openWindows.find(w => w.id === id)?.isMinimized || false;
+  };
+
   return (
     <div className="h-screen w-screen overflow-hidden bg-[#000000] relative">
       <TopBar />
       <Desktop />
       
       {/* Windows */}
-      {openWindows.find(w => w.id === 'home') && (
+      {openWindows.find(w => w.id === 'home') && !isWindowMinimized('home') && (
         <Window
           title="Home"
           onClose={() => closeWindow('home')}
+          onMinimize={() => minimizeWindow('home')}
           onFocus={() => bringToFront('home')}
           zIndex={getWindowZIndex('home')}
           defaultPosition={{ x: 100, y: 80 }}
@@ -61,10 +85,11 @@ export default function App() {
         </Window>
       )}
 
-      {openWindows.find(w => w.id === 'about') && (
+      {openWindows.find(w => w.id === 'about') && !isWindowMinimized('about') && (
         <Window
           title="About"
           onClose={() => closeWindow('about')}
+          onMinimize={() => minimizeWindow('about')}
           onFocus={() => bringToFront('about')}
           zIndex={getWindowZIndex('about')}
           defaultPosition={{ x: 150, y: 120 }}
@@ -73,10 +98,11 @@ export default function App() {
         </Window>
       )}
 
-      {openWindows.find(w => w.id === 'skills') && (
+      {openWindows.find(w => w.id === 'skills') && !isWindowMinimized('skills') && (
         <Window
           title="Skills"
           onClose={() => closeWindow('skills')}
+          onMinimize={() => minimizeWindow('skills')}
           onFocus={() => bringToFront('skills')}
           zIndex={getWindowZIndex('skills')}
           defaultPosition={{ x: 200, y: 100 }}
@@ -85,10 +111,11 @@ export default function App() {
         </Window>
       )}
 
-      {openWindows.find(w => w.id === 'projects') && (
+      {openWindows.find(w => w.id === 'projects') && !isWindowMinimized('projects') && (
         <Window
           title="Projects"
           onClose={() => closeWindow('projects')}
+          onMinimize={() => minimizeWindow('projects')}
           onFocus={() => bringToFront('projects')}
           zIndex={getWindowZIndex('projects')}
           defaultPosition={{ x: 250, y: 140 }}
@@ -97,10 +124,11 @@ export default function App() {
         </Window>
       )}
 
-      {openWindows.find(w => w.id === 'contact') && (
+      {openWindows.find(w => w.id === 'contact') && !isWindowMinimized('contact') && (
         <Window
           title="Contact"
           onClose={() => closeWindow('contact')}
+          onMinimize={() => minimizeWindow('contact')}
           onFocus={() => bringToFront('contact')}
           zIndex={getWindowZIndex('contact')}
           defaultPosition={{ x: 300, y: 160 }}
@@ -109,10 +137,11 @@ export default function App() {
         </Window>
       )}
 
-      {openWindows.find(w => w.id === 'terminal') && (
+      {openWindows.find(w => w.id === 'terminal') && !isWindowMinimized('terminal') && (
         <Window
           title="Terminal"
           onClose={() => closeWindow('terminal')}
+          onMinimize={() => minimizeWindow('terminal')}
           onFocus={() => bringToFront('terminal')}
           zIndex={getWindowZIndex('terminal')}
           defaultPosition={{ x: 350, y: 180 }}
@@ -121,10 +150,11 @@ export default function App() {
         </Window>
       )}
 
-      {openWindows.find(w => w.id === 'files') && (
+      {openWindows.find(w => w.id === 'files') && !isWindowMinimized('files') && (
         <Window
           title="File Manager"
           onClose={() => closeWindow('files')}
+          onMinimize={() => minimizeWindow('files')}
           onFocus={() => bringToFront('files')}
           zIndex={getWindowZIndex('files')}
           defaultPosition={{ x: 400, y: 200 }}

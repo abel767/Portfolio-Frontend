@@ -1,64 +1,76 @@
-import {Folder, FileCode, FileText, Image} from 'lucide-react'
+import { FileText, Folder, Download } from 'lucide-react'
 
 export function FileManagerWindow(){
-    const folders = [
-        {name: 'Projects', icon: Folder, count: 12 },
-        {name: 'Documents', icon: FileText, count: 24},
-        {name: 'Code', icon: FileCode, count: 156}, 
-        {name: 'Images', icon: Image, count: 48}
-    ]
-
     const files = [
-        {name: 'Resume.pdf', type: 'PDF Document', size: '245 KB'},
-        {name: 'Certificates', type: 'Folder', size: '8 items'},
-        {name: 'About-me.txt', type: 'Text File', size: '2 KB'},
+        {
+          name: 'Resume.pdf', 
+          type: 'PDF Document', 
+          size: '72 KB', 
+          downloadUrl: '/AbelThomas.pdf',
+          icon: FileText
+        },
+        {
+          name: 'Certificates', 
+          type: 'Folder', 
+          size: '8 items',
+          icon: Folder
+        }
     ]
- return (
-    <div className="p-6 min-h-[500px]">
-      <div className="space-y-6">
-        {/* Quick Access Folders */}
-        <div>
-          <h3 className="text-white/60 text-sm mb-3 uppercase tracking-wider">Quick Access</h3>
-          <div className="grid grid-cols-4 gap-3">
-            {folders.map((folder) => {
-              const Icon = folder.icon;
-              return (
-                <button
-                  key={folder.name}
-                  className="flex flex-col items-center p-4 bg-white/5 rounded-lg border border-[#2A2A2A] hover:bg-white/10 hover:border-cyan-500/30 transition-all group"
-                >
-                  <Icon className="w-10 h-10 text-cyan-400 mb-2 group-hover:scale-110 transition-transform" />
-                  <span className="text-white/80 text-sm">{folder.name}</span>
-                  <span className="text-white/40 text-xs mt-1">{folder.count} items</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
 
-        {/* Recent Files */}
-        <div>
-          <h3 className="text-white/60 text-sm mb-3 uppercase tracking-wider">Recent Files</h3>
-          <div className="space-y-2">
-            {files.map((file, index) => (
+    const handleDownload = (file) => {
+        if (file.downloadUrl) {
+            const link = document.createElement('a');
+            link.href = file.downloadUrl;
+            link.download = file.name;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+
+ return (
+    <div className="p-8 min-h-[500px] flex items-center justify-center">
+      <div className="w-full max-w-2xl">
+        <h2 className="text-white/80 text-2xl font-light mb-8 text-center">My Documents</h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {files.map((file, index) => {
+            const Icon = file.icon;
+            return (
               <button
                 key={index}
-                className="w-full flex items-center gap-3 p-3 bg-white/5 rounded-lg border border-[#2A2A2A] hover:bg-white/10 hover:border-cyan-500/30 transition-all group"
+                onClick={() => handleDownload(file)}
+                className="relative flex flex-col items-center p-8 bg-gradient-to-br from-white/5 to-white/[0.02] rounded-2xl border border-[#2A2A2A] hover:border-cyan-500/50 hover:from-cyan-500/10 hover:to-cyan-500/5 transition-all duration-300 group overflow-hidden"
               >
-                <div className="w-8 h-8 rounded bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
-                  <FileText className="w-4 h-4 text-cyan-400" />
+                {/* Glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-cyan-500/0 group-hover:from-cyan-500/10 group-hover:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="relative z-10 flex flex-col items-center">
+                  {/* Icon */}
+                  <div className="w-20 h-20 rounded-2xl bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20 mb-4 group-hover:scale-110 group-hover:bg-cyan-500/20 transition-all duration-300">
+                    <Icon className="w-10 h-10 text-cyan-400" />
+                  </div>
+                  
+                  {/* File info */}
+                  <div className="text-center">
+                    <div className="text-white/90 text-lg font-medium mb-1">{file.name}</div>
+                    <div className="text-white/40 text-sm mb-3">{file.type}</div>
+                    <div className="text-cyan-400/60 text-xs">{file.size}</div>
+                  </div>
+
+                  {/* Download indicator */}
+                  {file.downloadUrl && (
+                    <div className="mt-4 flex items-center gap-2 text-cyan-400/60 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Download className="w-3 h-3" />
+                      <span>Click to download</span>
+                    </div>
+                  )}
                 </div>
-                <div className="flex-1 text-left">
-                  <div className="text-white/80 text-sm">{file.name}</div>
-                  <div className="text-white/40 text-xs">{file.type}</div>
-                </div>
-                <div className="text-white/40 text-xs">{file.size}</div>
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>
   );
 }
-
