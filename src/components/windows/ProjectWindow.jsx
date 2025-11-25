@@ -1,58 +1,76 @@
-import { ImageWithFallback } from '../figma/ImageWithFallback' ;
+import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { ExternalLink, Github } from 'lucide-react';
 
 export function ProjectsWindow() {
   const projects = [
     {
       title: 'Automated SOC Triage Pipeline',
-      description: 'A full SOC workflow using Wazuh for detection, Shuffle for SOAR automation, TheHive for incident management, and VirusTotal for threat intelligence enrichment.',
-      // TEMP IMAGE: Cyber Security
-      image: 'https://images.unsplash.com/photo-1599949104055-2d04026aee1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjeWJlcnNlY3VyaXR5JTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NjM0NDg0NjB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      description:
+        'End-to-end SOC workflow using Wazuh (detection), Shuffle (SOAR automation), TheHive (case management), and VirusTotal (threat intelligence enrichment).',
+      image:
+        'https://images.unsplash.com/photo-1599949104055-2d04026aee1e?auto=format&fit=crop&w=800&q=80',
       tags: ['Wazuh', 'Shuffle SOAR', 'TheHive', 'VirusTotal', 'Incident Response'],
-
-      githubLink: 'YOUR_PROJECT_1_GITHUB_LINK', 
-      demoLink: 'YOUR_PROJECT_1_DEMO_LINK',
+      githubLink: 'YOUR_PROJECT_1_GITHUB_LINK',
+      demoLink: '',
     },
+
     {
       title: 'Splunk Brute-Force Detection SIEM',
-      description: 'Built a foundational SIEM pipeline to ingest Kali Linux authentication logs (auth.log) via Universal Forwarder and deployed a Real-time Scheduled Alert for SSH brute-force detection.',
-      // TEMP IMAGE: Data/Log Analysis
-      image: 'https://images.unsplash.com/photo-1551288258-00ab61a99539?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsb2clMjBhbmFseXNpc3xlbnwxfHx8fDE3NjMyOTQ2OTV8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      description:
+        'SIEM pipeline ingesting Linux authentication logs via Universal Forwarder, featuring a real-time Splunk alert for SSH brute-force detection.',
+      image:
+        'https://images.unsplash.com/photo-1551288258-00ab61a99539?auto=format&fit=crop&w=800&q=80',
       tags: ['Splunk', 'SIEM', 'SPL', 'Kali Linux', 'Hydra', 'Log Analysis'],
-
-      githubLink: 'https://github.com/abel767/Splunk-Log-Analysis-Real-Time-Brute-Force-Detection.git',
-      demoLink: 'YOUR_PROJECT_2_DEMO_LINK',
+      githubLink:
+        'https://github.com/abel767/Splunk-Log-Analysis-Real-Time-Brute-Force-Detection.git',
+      demoLink: '',
     },
-
   ];
 
   return (
     <div className="p-10 max-h-[600px] overflow-y-auto">
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {projects.map((project, index) => (
-          <div key={index} className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] overflow-hidden hover:border-cyan-500/30 transition-colors">
-            {/* Project image */}
-            <div className="h-40 overflow-hidden bg-black/40">
+          <div
+            key={index}
+            className="
+              bg-white/5 backdrop-blur-md rounded-2xl border border-white/10
+              shadow-lg overflow-hidden transition-all duration-300
+              hover:border-cyan-500/40 hover:shadow-cyan-500/10 hover:-translate-y-1
+            "
+          >
+            {/* Image */}
+            <div className="relative h-40 overflow-hidden">
               <ImageWithFallback
                 src={project.image}
                 alt={project.title}
-                className="w-full h-full object-cover opacity-70"
+                className="w-full h-full object-cover opacity-80 transition-transform duration-500 hover:scale-110"
               />
+
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/40 pointer-events-none" />
             </div>
 
-            {/* Project info */}
-            <div className="p-5 space-y-3">
-              <h4 className="text-white text-lg">{project.title}</h4>
-              <p className="text-[#B0B0B0] text-sm leading-relaxed">
+            {/* Info */}
+            <div className="p-6 space-y-4">
+              <h4 className="text-white text-xl font-semibold tracking-wide">
+                {project.title}
+              </h4>
+
+              <p className="text-white/60 text-sm leading-relaxed">
                 {project.description}
               </p>
 
               {/* Tags */}
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 pt-1">
                 {project.tags.map((tag) => (
-                  <span 
+                  <span
                     key={tag}
-                    className="px-2 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded text-cyan-400 text-xs"
+                    className="
+                      px-3 py-1 text-xs rounded-lg tracking-wide
+                      bg-cyan-500/10 border border-cyan-500/20 text-cyan-300
+                      shadow-sm hover:bg-cyan-500/20 transition-colors
+                    "
                   >
                     {tag}
                   </span>
@@ -60,28 +78,40 @@ export function ProjectsWindow() {
               </div>
 
               {/* Buttons */}
-              <div className="flex gap-2 pt-2">
-                {/* Demo Button */}
-                {/* <a 
-                  href={project.demoLink} 
-                  target="_blank" 
+              <div className="flex gap-3 pt-2">
+                {/* GitHub */}
+                <a
+                  href={project.githubLink}
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 hover:bg-white/10 text-white text-sm rounded-lg transition-colors border border-[#2A2A2A]"
+                  className="
+                    flex items-center justify-center gap-2 flex-1
+                    px-4 py-2 rounded-lg text-sm
+                    bg-white/5 border border-white/10 text-white
+                    hover:bg-white/10 hover:border-cyan-500/40 transition-all
+                  "
                 >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                  <span>Demo</span>
-                </a> */}
-                
-                {/* Code Button */}
-                <a 
-                  href={project.githubLink} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 hover:bg-white/10 text-white text-sm rounded-lg transition-colors border border-[#2A2A2A]"
-                >
-                  <Github className="w-3.5 h-3.5" />
-                  <span>Code</span>
+                  <Github className="w-4 h-4" />
+                  Code
                 </a>
+
+                {/* Demo (optional) */}
+                {project.demoLink && (
+                  <a
+                    href={project.demoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="
+                      flex items-center justify-center gap-2 flex-1
+                      px-4 py-2 rounded-lg text-sm
+                      bg-cyan-500/10 text-cyan-300 border border-cyan-500/20
+                      hover:bg-cyan-500/20 transition-all
+                    "
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Live Demo
+                  </a>
+                )}
               </div>
             </div>
           </div>

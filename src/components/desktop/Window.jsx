@@ -11,7 +11,7 @@ export function Window({
   defaultSize = { width: 800, height: 600 },
   isMinimizing = false
 }) {
-  const [position, setPosition] = useState(defaultPosition);
+const [position, setPosition] = useState({ x: 0, y: 0 });
   const [size, setSize] = useState(defaultSize);
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
@@ -22,6 +22,15 @@ export function Window({
   const [isOpening, setIsOpening] = useState(true);
   
   const windowRef = useRef(null);
+
+  useEffect(() => {
+  // Center the window on open
+  const centerX = (window.innerWidth - size.width) / 2;
+  const centerY = (window.innerHeight - size.height) / 2;
+
+  setPosition({ x: centerX, y: centerY });
+}, []);
+
 
   // Opening animation
   useEffect(() => {

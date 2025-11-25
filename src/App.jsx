@@ -69,7 +69,7 @@ export default function App() {
   return (
     <div className="h-screen w-screen overflow-hidden bg-[#000000] relative">
       <TopBar />
-      <Desktop />
+      <Desktop onIconClick={openWindow} openWindows={openWindows.map(w => w.id)} />
       
       {/* Windows */}
       {openWindows.find(w => w.id === 'home') && !isWindowMinimized('home') && (
