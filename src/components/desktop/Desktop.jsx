@@ -5,17 +5,31 @@ export function Desktop({ onIconClick, openWindows }) {
     { id: 'about', icon: User, label: 'About Me' },
     { id: 'projects', icon: FolderOpen, label: 'Projects' },
     { id: 'skills', icon: Award, label: 'Skills' },
-    { id: 'resume', icon: FileText, label: 'Resume' },
+    { 
+      id: 'resume',
+      name: 'Resume.pdf',
+      icon: FileText,
+      label: 'Resume',
+      size: '72 KB',
+      downloadUrl: '/AbelThomas.pdf',
+    },
   ];
+
+  const handleDownload = (file) => {
+    const link = document.createElement('a');
+    link.href = file.downloadUrl;
+    link.download = file.name;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div 
       className="fixed inset-0 top-5 bottom-0 overflow-hidden"
-      style={{
-        background: "#000000",
-      }}
+      style={{ background: "#000000" }}
     >
-      {/* Matrix-style grid overlay */}
+      {/* Matrix grid */}
       <div
         className="absolute inset-0 opacity-10"
         style={{
@@ -27,8 +41,8 @@ export function Desktop({ onIconClick, openWindows }) {
           animation: 'gridScroll 20s linear infinite',
         }}
       />
-      
-      {/* Cyber gradient background */}
+
+      {/* Cyber gradient */}
       <div
         className="absolute inset-0"
         style={{
@@ -40,7 +54,7 @@ export function Desktop({ onIconClick, openWindows }) {
           animation: "cyberShift 20s ease-in-out infinite",
         }}
       />
-      
+
       {/* Scanline effect */}
       <div
         className="absolute inset-0 opacity-5 pointer-events-none"
@@ -49,8 +63,8 @@ export function Desktop({ onIconClick, openWindows }) {
           animation: 'scanline 8s linear infinite',
         }}
       />
-      
-      {/* Vignette with cyber glow */}
+
+      {/* Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -61,7 +75,7 @@ export function Desktop({ onIconClick, openWindows }) {
           `,
         }}
       />
-      
+
       {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(15)].map((_, i) => (
@@ -71,7 +85,12 @@ export function Desktop({ onIconClick, openWindows }) {
             style={{
               width: Math.random() * 3 + 1 + 'px',
               height: Math.random() * 3 + 1 + 'px',
-              background: i % 3 === 0 ? 'rgba(0, 255, 65, 0.6)' : i % 3 === 1 ? 'rgba(0, 255, 255, 0.6)' : 'rgba(255, 0, 85, 0.6)',
+              background:
+                i % 3 === 0
+                  ? 'rgba(0, 255, 65, 0.6)'
+                  : i % 3 === 1
+                  ? 'rgba(0, 255, 255, 0.6)'
+                  : 'rgba(255, 0, 85, 0.6)',
               boxShadow: `0 0 ${Math.random() * 10 + 5}px currentColor`,
               left: Math.random() * 100 + '%',
               top: Math.random() * 100 + '%',
@@ -86,50 +105,42 @@ export function Desktop({ onIconClick, openWindows }) {
       <div className="absolute top-8 left-8 grid gap-6 z-10">
         {desktopIcons.map((item) => {
           const Icon = item.icon;
-          const isOpen = openWindows.includes(item.id);
-          
+
           return (
             <button
               key={item.id}
-              onClick={() => onIconClick(item.id)}
+              onClick={() => {
+                if (item.id === 'resume' && item.downloadUrl) {
+                  handleDownload(item);
+                } else {
+                  onIconClick(item.id);
+                }
+              }}
               className="group flex flex-col items-center gap-2"
               aria-label={item.label}
             >
-              {/* Icon container */}
-              <div 
-                className={`
-                  w-12 h-12 rounded-xl backdrop-blur-sm border flex items-center justify-center
-                  transition-all duration-300
-                  ${isOpen 
-                    ? 'bg-white/15 border-cyan-400/50 scale-95' 
-                    : 'bg-white/5 border-white/10 group-hover:bg-white/10 group-hover:scale-110 group-hover:border-cyan-400/30'
-                  }
-                `}
+              {/* Icon Box (hover only, no active glow) */}
+              <div
+                className="
+                  w-12 h-12 rounded-xl backdrop-blur-sm border 
+                  flex items-center justify-center transition-all duration-300
+                  bg-white/5 border-white/10
+                  group-hover:bg-white/10 group-hover:scale-110 group-hover:border-cyan-400/30
+                "
               >
-                <Icon 
-                  className={`w-8 h-8 transition-colors ${
-                    isOpen ? 'text-cyan-400' : 'text-white/70 group-hover:text-cyan-400'
-                  }`} 
-                />
+                <Icon className="w-8 h-8 text-white/70 group-hover:text-cyan-400 transition-colors" />
               </div>
-              
+
               {/* Label */}
-              <span className={`text-sm transition-colors ${
-                isOpen ? 'text-cyan-400' : 'text-white/70 group-hover:text-white'
-              }`}>
+              <span className="text-sm text-white/70 group-hover:text-white transition-colors">
                 {item.label}
               </span>
-
-              {/* Active indicator */}
-              {isOpen && (
-                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-cyan-400"></div>
-              )}
             </button>
           );
         })}
       </div>
-      
-      {/* Animation styles */}
+
+      {/* Animations */}
       <style>{`
         @keyframes cyberShift {
           0% {
@@ -157,34 +168,20 @@ export function Desktop({ onIconClick, openWindows }) {
               radial-gradient(ellipse 900px 700px at 50% 50%, rgba(255, 0, 85, 0.08) 0%, transparent 70%);
           }
         }
-        
+
         @keyframes gridScroll {
-          0% {
-            transform: translateY(0);
-          }
-          100% {
-            transform: translateY(50px);
-          }
+          0% { transform: translateY(0); }
+          100% { transform: translateY(50px); }
         }
-        
+
         @keyframes scanline {
-          0% {
-            transform: translateY(-100%);
-          }
-          100% {
-            transform: translateY(100%);
-          }
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(100%); }
         }
-        
+
         @keyframes float {
-          0%, 100% {
-            transform: translate(0, 0) scale(1);
-            opacity: 0.3;
-          }
-          50% {
-            transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(1.5);
-            opacity: 0.8;
-          }
+          0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+          50% { transform: translate(20px, -30px) scale(1.5); opacity: 0.8; }
         }
       `}</style>
     </div>
