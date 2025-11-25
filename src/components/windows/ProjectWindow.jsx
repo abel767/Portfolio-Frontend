@@ -1,4 +1,4 @@
-import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { ImageWithFallBack } from '../figma/ImageWithFallBack';
 import { ExternalLink, Github } from 'lucide-react';
 
 export function ProjectsWindow() {
