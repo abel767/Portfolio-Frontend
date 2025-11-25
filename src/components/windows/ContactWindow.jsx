@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Mail, User, MessageSquare, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 export function ContactWindow() {
   const [formData, setFormData] = useState({
     name: '',
@@ -19,13 +21,13 @@ export function ContactWindow() {
     setStatus({ loading: true, success: false, error: null });
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+   const response = await fetch(`${BACKEND_URL}/api/contact`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(formData),
+});
 
       const data = await response.json();
 
