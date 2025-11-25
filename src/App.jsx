@@ -20,7 +20,7 @@ import { TerminalWindow } from './components/windows/TerminalWindow'
 import { FileManagerWindow } from './components/windows/FileManagerWindow'
 
 // Mobile Portfolio
-import { MobilePortfolio } from './components/mobile/MobilePortfolio'
+import { MobilePortfolio } from './components/Mobile/MobilePortfolio'
 
 export default function App() {
 
