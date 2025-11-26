@@ -1,4 +1,3 @@
-import { ImageWithFallBack } from '../figma/ImageWithFallBack';
 import { ExternalLink, Github } from 'lucide-react';
 
 export function ProjectsWindow() {
@@ -7,8 +6,7 @@ export function ProjectsWindow() {
       title: 'Automated SOC Triage Pipeline',
       description:
         'End-to-end SOC workflow using Wazuh (detection), Shuffle (SOAR automation), TheHive (case management), and VirusTotal (threat intelligence enrichment).',
-      image:
-        'https://images.unsplash.com/photo-1599949104055-2d04026aee1e?auto=format&fit=crop&w=800&q=80',
+      image: '', // removed for now
       tags: ['Wazuh', 'Shuffle SOAR', 'TheHive', 'VirusTotal', 'Incident Response'],
       githubLink: 'YOUR_PROJECT_1_GITHUB_LINK',
       demoLink: '',
@@ -18,8 +16,7 @@ export function ProjectsWindow() {
       title: 'Splunk Brute-Force Detection SIEM',
       description:
         'SIEM pipeline ingesting Linux authentication logs via Universal Forwarder, featuring a real-time Splunk alert for SSH brute-force detection.',
-      image:
-        'https://images.unsplash.com/photo-1551288258-00ab61a99539?auto=format&fit=crop&w=800&q=80',
+      image: '',
       tags: ['Splunk', 'SIEM', 'SPL', 'Kali Linux', 'Hydra', 'Log Analysis'],
       githubLink:
         'https://github.com/abel767/Splunk-Log-Analysis-Real-Time-Brute-Force-Detection.git',
@@ -39,16 +36,10 @@ export function ProjectsWindow() {
               hover:border-cyan-500/40 hover:shadow-cyan-500/10 hover:-translate-y-1
             "
           >
-            {/* Image */}
-            <div className="relative h-40 overflow-hidden">
-              <ImageWithFallback
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover opacity-80 transition-transform duration-500 hover:scale-110"
-              />
-
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/40 pointer-events-none" />
+            {/* Placeholder Image */}
+            <div className="relative h-40 bg-black/40 flex items-center justify-center text-white/30 text-sm">
+              NO IMAGE
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/40" />
             </div>
 
             {/* Info */}
