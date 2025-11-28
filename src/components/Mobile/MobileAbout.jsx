@@ -7,6 +7,7 @@ export function MobileAbout() {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
+    
     <section id="about" ref={ref} className="min-h-screen bg-black py-20 px-6 text-white relative overflow-hidden">
       
       {/* Glow & Background elements */}
