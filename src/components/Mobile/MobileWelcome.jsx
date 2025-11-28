@@ -2,163 +2,146 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function MobileWelcome({ onFinish }) {
-  const terminalLines = [
-    { text: "Initializing secure connection...", delay: 0 },
-    { text: "Loading encryption modules...", delay: 400 },
-    { text: "Authenticating user credentials...", delay: 800 },
-    { text: "Establishing encrypted tunnel...", delay: 1200 },
-    { text: "Access granted.", delay: 1800 },
-    { text: "Welcome to the portfolio.", delay: 2200 }
-  ];
-
-  const [displayedLines, setDisplayedLines] = useState([]);
-  const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [show, setShow] = useState(true);
-  const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
-    if (currentLineIndex < terminalLines.length) {
-      const timer = setTimeout(() => {
-        setDisplayedLines((prev) => [...prev, terminalLines[currentLineIndex]]);
-        setCurrentLineIndex((prev) => prev + 1);
-      }, terminalLines[currentLineIndex].delay);
+    const timer = setTimeout(() => {
+      setShow(false);
+    }, 3000);
 
-      return () => clearTimeout(timer);
-    } else {
-      // After all lines, wait then exit
-      const exitTimer = setTimeout(() => {
-        setShow(false);
-      }, 1000);
-      return () => clearTimeout(exitTimer);
-    }
-  }, [currentLineIndex]);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <AnimatePresence onExitComplete={onFinish}>
       {show && (
         <motion.section
-          className="relative w-full h-screen bg-black flex flex-col items-center justify-center px-6 font-mono overflow-hidden"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.6 }}
+          className="fixed inset-0 w-full h-screen bg-black flex flex-col items-center justify-center z-[100]"
+          initial={{ opacity: 1 }}
+          exit={{ 
+            opacity: 0,
+            x: [0, -5, 5, -3, 3, -2, 2, 0],
+            y: [0, 2, -2, 3, -3, 1, -1, 0],
+          }}
+          transition={{ 
+            opacity: { duration: 0.4, delay: 0.3 },
+            x: { duration: 0.3, times: [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1] },
+            y: { duration: 0.3, times: [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1] }
+          }}
+          style={{
+            textShadow: show ? "0 0 0 transparent" : undefined
+          }}
         >
-          {/* Animated grid background */}
+          {/* Glitch overlay on exit */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            initial={{ opacity: 0 }}
+            exit={{
+              opacity: [0, 0, 1, 0, 1, 0, 1, 0],
+              background: [
+                "linear-gradient(90deg, transparent 0%, transparent 100%)",
+                "linear-gradient(90deg, rgba(255,0,0,0.3) 0%, transparent 50%, rgba(0,255,0,0.3) 100%)",
+                "linear-gradient(90deg, transparent 0%, rgba(0,255,255,0.2) 50%, transparent 100%)",
+                "linear-gradient(90deg, rgba(0,255,0,0.3) 0%, transparent 50%, rgba(255,0,0,0.3) 100%)",
+                "linear-gradient(90deg, transparent 0%, rgba(255,0,0,0.2) 50%, transparent 100%)",
+                "linear-gradient(90deg, transparent 0%, transparent 100%)",
+              ]
+            }}
+            transition={{ duration: 0.3, times: [0, 0.1, 0.3, 0.5, 0.7, 0.9, 1] }}
+          />
+        
+          {/* Subtle grid background */}
           <motion.div
             className="absolute inset-0"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.15 }}
-            transition={{ duration: 1.5 }}
+            animate={{ opacity: [0, 0.03, 0.03, 0] }}
+            transition={{ duration: 2.8, times: [0, 0.3, 0.7, 1] }}
             style={{
-              backgroundImage: "linear-gradient(rgba(0, 255, 255, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 255, 0.3) 1px, transparent 1px)",
-              backgroundSize: '40px 40px',
+              backgroundImage: "linear-gradient(rgba(0, 255, 255, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 255, 0.5) 1px, transparent 1px)",
+              backgroundSize: '50px 50px',
             }}
           />
 
-          {/* Glowing orb effect */}
-          <motion.div
-            className="absolute top-1/2 left-1/2 w-96 h-96 rounded-full"
-            style={{
-              background: "radial-gradient(circle, rgba(0,255,255,0.2) 0%, transparent 70%)",
-              filter: "blur(60px)",
-            }}
-            initial={{ scale: 0, x: "-50%", y: "-50%" }}
-            animate={{ scale: 1, x: "-50%", y: "-50%" }}
-            transition={{ duration: 2, ease: "easeOut" }}
-          />
-
-          {/* Corner decorations */}
-          <motion.div
-            className="absolute top-0 left-0 w-24 h-24 border-l-2 border-t-2 border-[#00ffff]/40"
-            initial={{ opacity: 0, x: -20, y: -20 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-          />
-          <motion.div
-            className="absolute bottom-0 right-0 w-24 h-24 border-r-2 border-b-2 border-[#00ffff]/40"
-            initial={{ opacity: 0, x: 20, y: 20 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-          />
-
-          {/* Terminal window */}
-          <motion.div
-            className="relative z-10 w-full max-w-2xl bg-black/60 backdrop-blur-sm border border-[#00ffff]/30 rounded-lg p-6 shadow-2xl"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            {/* Terminal header */}
-            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#00ffff]/20">
-              <div className="w-3 h-3 rounded-full bg-red-500/80" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-              <div className="w-3 h-3 rounded-full bg-green-500/80" />
-              <span className="ml-2 text-[#00ffff]/60 text-xs">terminal@abelthomas:~</span>
-            </div>
-
-            {/* Terminal content */}
-            <div className="space-y-2">
-              {displayedLines.map((line, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex items-center text-[#00ffff] text-sm sm:text-base"
-                >
-                  <span className="text-[#00ffff]/60 mr-2">›</span>
-                  <span className="flex-1">{line.text}</span>
-                  {idx === displayedLines.length - 1 && showCursor && (
-                    <motion.span
-                      className="inline-block w-2 h-4 bg-[#00ffff] ml-1"
-                      animate={{ opacity: [1, 0, 1] }}
-                      transition={{ repeat: Infinity, duration: 0.8 }}
-                    />
-                  )}
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Progress indicator */}
-            {currentLineIndex < terminalLines.length && (
+          {/* Main animation */}
+          <div className="relative z-10 flex flex-col items-center">
+            {/* Monogram logo */}
+            <motion.div
+              className="relative w-20 h-20 mb-4"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              {/* Outer ring */}
               <motion.div
-                className="mt-6 w-full h-1 bg-[#00ffff]/10 rounded-full overflow-hidden"
+                className="absolute inset-0 border-2 border-[#00ffff]/30 rounded-full"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+              />
+              
+              {/* Inner content - AT monogram with glitch */}
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center text-[#00ffff] text-2xl font-bold font-mono"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
               >
-                <motion.div
-                  className="h-full bg-[#00ffff]"
-                  initial={{ width: "0%" }}
-                  animate={{ width: `${((currentLineIndex + 1) / terminalLines.length) * 100}%` }}
-                  transition={{ duration: 0.4 }}
-                />
+                <motion.span
+                  animate={{
+                    x: [0, -2, 2, -1, 1, 0],
+                    y: [0, 1, -1, 2, -2, 0],
+                    textShadow: [
+                      "0 0 0 rgba(0, 255, 255, 0)",
+                      "-2px 0 0 rgba(255, 0, 0, 0.7), 2px 0 0 rgba(0, 255, 0, 0.7)",
+                      "2px 0 0 rgba(255, 0, 0, 0.7), -2px 0 0 rgba(0, 255, 0, 0.7)",
+                      "0 0 0 rgba(0, 255, 255, 0)",
+                      "-1px 0 0 rgba(255, 0, 0, 0.5), 1px 0 0 rgba(0, 255, 0, 0.5)",
+                      "0 0 0 rgba(0, 255, 255, 0)"
+                    ]
+                  }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 1.5,
+                    times: [0, 0.2, 0.4, 0.6, 0.8, 1],
+                    ease: "easeInOut"
+                  }}
+                >
+                  AT
+                </motion.span>
               </motion.div>
-            )}
-          </motion.div>
 
-          {/* Floating particles */}
-          {[...Array(8)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-[#00ffff] rounded-full"
-              initial={{ 
-                x: Math.random() * window.innerWidth, 
-                y: window.innerHeight + 20,
-                opacity: 0 
-              }}
-              animate={{ 
-                y: -20,
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: 3 + Math.random() * 2,
-                repeat: Infinity,
-                delay: Math.random() * 2,
-                ease: "linear"
-              }}
-            />
-          ))}
+              {/* Animated arc */}
+              <motion.svg
+                className="absolute inset-0 w-full h-full -rotate-90"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+              >
+                <motion.circle
+                  cx="40"
+                  cy="40"
+                  r="38"
+                  stroke="#00ffff"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 1.2, ease: "easeInOut", delay: 0.8 }}
+                />
+              </motion.svg>
+            </motion.div>
+
+            {/* Loading text */}
+            <motion.p
+              className="text-[#00ffff]/60 font-mono text-xs tracking-widest mt-2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 1, 0] }}
+              transition={{ duration: 2.8, times: [0, 0.3, 0.7, 1] }}
+            >
+              LOADING
+            </motion.p>
+          </div>
         </motion.section>
       )}
     </AnimatePresence>
