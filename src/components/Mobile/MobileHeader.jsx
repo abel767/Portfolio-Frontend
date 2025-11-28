@@ -14,16 +14,16 @@ export function MobileHeader() {
     <section className="min-h-screen bg-black flex flex-col items-center justify-center px-6 relative overflow-visible">
       
       {/* Grid background */}
-      <div className="absolute inset-0 -z-10">
-        <div
-          className="h-full w-full"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(0,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,255,0.08) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        />
-      </div>
+     <div className="absolute inset-0 opacity-[0.05] sm:opacity-[0.02]">
+  <div
+    className="h-full"
+    style={{
+      backgroundImage:
+        "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
+      backgroundSize: window.innerWidth < 768 ? "30px 30px" : "60px 60px", // smaller for mobile
+    }}
+  />
+</div>
 
       {/* Main content */}
       <div className="relative z-10 text-center max-w-md">
