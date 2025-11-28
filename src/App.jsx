@@ -21,6 +21,8 @@ import { FileManagerWindow } from './components/windows/FileManagerWindow'
 
 // Mobile Portfolio
 import { MobilePortfolio } from './components/Mobile/MobilePortfolio'
+import MobileWelcome from './components/Mobile/MobileWelcome'
+
 
 export default function App() {
 
@@ -88,6 +90,13 @@ export default function App() {
 
   // 📱 CHECK IF MOBILE
   const isMobile = window.innerWidth < 768;
+
+
+    if (showWelcome) {
+    return isMobile
+      ? <MobileWelcome onFinish={() => setShowWelcome(false)} />
+      : <WelcomeScreen onFinish={() => setShowWelcome(false)} />;
+  }
 
 
   // ===============================
