@@ -56,7 +56,7 @@ export function MobileProjects() {
     Projects
   </div>
 
-  <h2 className="text-[#00ffff] text-3xl font-semibold mb-4 drop-shadow-[0_0_6px_rgb(0,255,255)]">
+  <h2 className="text-foreground mb-4 text-3xl font-semibold">
     Featured Work
   </h2>
   <p className="text-muted-foreground">
