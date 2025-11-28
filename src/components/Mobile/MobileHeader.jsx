@@ -16,7 +16,7 @@ export function MobileHeader() {
       <div 
         className="absolute inset-0 sm:hidden"
         style={{
-          backgroundImage: "linear-gradient(rgba(255, 255, 255, 1) 2px, transparent 2px), linear-gradient(90deg, rgba(255, 255, 255, 0.25) 2px, transparent 2px)",
+          backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.7) 2px, transparent 2px), linear-gradient(90deg, rgba(255, 255, 255, 0.7) 2px, transparent 2px)",
           backgroundSize: '30px 30px',
         }}
       />
