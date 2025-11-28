@@ -9,19 +9,17 @@ export function MobileHeader() {
     });
   };
 
-  // Determine grid size based on screen width
-  const gridSize = window.innerWidth < 768 ? "20px 20px" : "60px 60px";
-
   return (
     <section className="min-h-screen bg-black flex flex-col items-center justify-center px-6 relative">
+      
       {/* Subtle grid background */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 -z-10">
         <div
           className="h-full w-full"
           style={{
             backgroundImage:
-              "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
-            backgroundSize: gridSize,
+              "linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
           }}
         />
       </div>
