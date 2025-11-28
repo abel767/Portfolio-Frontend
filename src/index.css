@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
+/* -----------------------------------------
+   FORCE CONSISTENT COLOR PROFILE ACROSS DEVICES
+   Prevents AMOLED saturation, black crush, text
+   brightening, and boosted contrast on mobile.
+----------------------------------------- */
+html {
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -138,9 +148,6 @@
   }
 }
 
-/**
- * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
- */
 @layer base {
   :where(:not(:has([class*=' text-']), :not(:has([class^='text-'])))) {
     h1 {
@@ -197,13 +204,7 @@ html {
   font-size: var(--font-size);
 }
 
-/* Ubuntu font import */
-
+/* Ubuntu font class */
 .ubuntu-font {
   font-family: 'Ubuntu', sans-serif;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
 }
