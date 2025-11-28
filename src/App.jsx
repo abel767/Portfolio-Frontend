@@ -1,80 +1,70 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
 
-// Welcome
-import { WelcomeScreen } from './components/WelcomeScreen'
+// Welcome Screens
+import { WelcomeScreen } from './components/WelcomeScreen';
+import MobileWelcome from './components/Mobile/MobileWelcome';
 
 // Desktop Components
-import { TopBar } from './components/desktop/TopBar'
-import { Desktop } from './components/desktop/Desktop'
-import { Dock } from './components/desktop/Dock'
-import { Window } from './components/desktop/Window'
+import { TopBar } from './components/desktop/TopBar';
+import { Desktop } from './components/desktop/Desktop';
+import { Dock } from './components/desktop/Dock';
+import { Window } from './components/desktop/Window';
 
 // Desktop Windows
-import { HomeWindow } from './components/windows/HomeWindow'
-import { AboutWindow } from './components/windows/AboutWindow'
-import { SkillsWindow } from './components/windows/SkillsWindow'
-import { ProjectsWindow } from './components/windows/ProjectWindow'
-import { ContactWindow } from './components/windows/ContactWindow'
-import { TerminalWindow } from './components/windows/TerminalWindow'
-import { FileManagerWindow } from './components/windows/FileManagerWindow'
+import { HomeWindow } from './components/windows/HomeWindow';
+import { AboutWindow } from './components/windows/AboutWindow';
+import { SkillsWindow } from './components/windows/SkillsWindow';
+import { ProjectsWindow } from './components/windows/ProjectWindow';
+import { ContactWindow } from './components/windows/ContactWindow';
+import { TerminalWindow } from './components/windows/TerminalWindow';
+import { FileManagerWindow } from './components/windows/FileManagerWindow';
 
 // Mobile Portfolio
-import { MobilePortfolio } from './components/Mobile/MobilePortfolio'
-import MobileWelcome from './components/Mobile/MobileWelcome'
-
+import { MobilePortfolio } from './components/Mobile/MobilePortfolio';
 
 export default function App() {
-
   const [openWindows, setOpenWindows] = useState([]);
   const [maxZIndex, setMaxZIndex] = useState(10);
   const [showWelcome, setShowWelcome] = useState(true);
 
-  // OPEN WINDOW
-  const openWindow = (id) => {
-    const existingWindow = openWindows.find(w => w.id === id);
+  // -------------------------
+  // WINDOW MANAGEMENT
+  // -------------------------
 
-    if (!existingWindow) {
+  const openWindow = (id) => {
+    const existing = openWindows.find((w) => w.id === id);
+
+    if (!existing) {
       setOpenWindows([...openWindows, { id, zIndex: maxZIndex + 1, isMinimized: false }]);
       setMaxZIndex(maxZIndex + 1);
-    } else if (existingWindow.isMinimized) {
+    } else if (existing.isMinimized) {
       restoreWindow(id);
     } else {
       bringToFront(id);
     }
   };
 
-  // CLOSE WINDOW
   const closeWindow = (id) => {
-    setOpenWindows(openWindows.filter(w => w.id !== id));
+    setOpenWindows(openWindows.filter((w) => w.id !== id));
   };
 
-  // MINIMIZE WINDOW
   const minimizeWindow = (id) => {
-    setOpenWindows(openWindows.map(w =>
-      w.id === id ? { ...w, isMinimized: true } : w
-    ));
+    setOpenWindows(openWindows.map(w => w.id === id ? { ...w, isMinimized: true } : w));
   };
 
-  // RESTORE MINIMIZED WINDOW
   const restoreWindow = (id) => {
     const newMaxZ = maxZIndex + 1;
     setMaxZIndex(newMaxZ);
-    setOpenWindows(openWindows.map(w =>
-      w.id === id ? { ...w, isMinimized: false, zIndex: newMaxZ } : w
-    ));
+    setOpenWindows(openWindows.map(w => w.id === id ? { ...w, isMinimized: false, zIndex: newMaxZ } : w));
   };
 
-  // BRING TO FRONT
   const bringToFront = (id) => {
     const newMaxZ = maxZIndex + 1;
     setMaxZIndex(newMaxZ);
-    setOpenWindows(openWindows.map(w =>
-      w.id === id ? { ...w, zIndex: newMaxZ } : w
-    ));
+    setOpenWindows(openWindows.map(w => w.id === id ? { ...w, zIndex: newMaxZ } : w));
   };
 
-  // HELPERS
   const getWindowZIndex = (id) => {
     return openWindows.find(w => w.id === id)?.zIndex || 10;
   };
@@ -83,45 +73,38 @@ export default function App() {
     return openWindows.find(w => w.id === id)?.isMinimized || false;
   };
 
-  // SHOW WELCOME FIRST
-  if (showWelcome) {
-    return <WelcomeScreen onFinish={() => setShowWelcome(false)} />;
-  }
-
-  // 📱 CHECK IF MOBILE
+  // -------------------------
+  // MOBILE CHECK
+  // -------------------------
   const isMobile = window.innerWidth < 768;
 
-
-    if (showWelcome) {
+  // -------------------------
+  // SHOW WELCOME SCREEN FIRST
+  // -------------------------
+  if (showWelcome) {
     return isMobile
       ? <MobileWelcome onFinish={() => setShowWelcome(false)} />
       : <WelcomeScreen onFinish={() => setShowWelcome(false)} />;
   }
 
-
-  // ===============================
-  //           RENDER
-  // ===============================
+  // -------------------------
+  // RENDER
+  // -------------------------
   return (
     <>
       {isMobile ? (
-
-        // 👉 *** MOBILE VERSION ***
+        // 👉 Mobile Portfolio
         <MobilePortfolio />
-
       ) : (
-
-        // 👉 *** DESKTOP VERSION ***
+        // 👉 Desktop Portfolio
         <div className="h-screen w-screen overflow-hidden bg-[#000000] relative">
-          
-          {/* TOP BAR */}
+          {/* Top Bar */}
           <TopBar />
 
-          {/* DESKTOP ICONS */}
+          {/* Desktop Icons */}
           <Desktop onIconClick={openWindow} openWindows={openWindows.map(w => w.id)} />
 
-          {/* WINDOWS */}
-
+          {/* Windows */}
           {openWindows.find(w => w.id === 'home') && !isWindowMinimized('home') && (
             <Window
               title="Home"
@@ -213,9 +196,8 @@ export default function App() {
             </Window>
           )}
 
-          {/* DOCK */}
+          {/* Dock */}
           <Dock onIconClick={openWindow} openWindows={openWindows.map(w => w.id)} />
-
         </div>
       )}
     </>
