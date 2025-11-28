@@ -1,3 +1,4 @@
+// src/components/Mobile/MobileHeader.jsx
 import { motion } from "motion/react";
 import { ChevronDown } from "lucide-react";
 
@@ -10,15 +11,15 @@ export function MobileHeader() {
   };
 
   return (
-    <section className="min-h-screen bg-black flex flex-col items-center justify-center px-6 relative">
+    <section className="min-h-screen bg-black flex flex-col items-center justify-center px-6 relative overflow-visible">
       
-      {/* Subtle grid background */}
+      {/* Grid background */}
       <div className="absolute inset-0 -z-10">
         <div
           className="h-full w-full"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px)",
+              "linear-gradient(rgba(0,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,255,0.08) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         />
@@ -31,7 +32,6 @@ export function MobileHeader() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* Updated title */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

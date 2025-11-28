@@ -7,11 +7,11 @@ import { MobileContact } from "./MobileContact";
 
 export function MobilePortfolio() {
   return (
-    <div className="bg-black text-white w-full overflow-x-hidden">
+    <div className="bg-black text-white w-full overflow-visible">
       {/* TabBar */}
       <TabBar />
 
-      {/* Header */}
+      {/* Header with grid */}
       <MobileHeader />
 
       {/* Sections */}
