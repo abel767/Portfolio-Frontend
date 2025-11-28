@@ -39,7 +39,7 @@ export function MobileContact() {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <div className="inline-block px-3 py-1 bg-[#00ffff]/10 border border-accent/30 text-accent mb-6 font-mono">
+          <div className="inline-block px-3 py-1 bg-[#00ffff]/10 border border-[#00ffff]/30 text-accent mb-6 font-mono">
             Contact
           </div>
           <h2 className="text-foreground mb-4 text-3xl font-semibold">Let's Connect</h2>
