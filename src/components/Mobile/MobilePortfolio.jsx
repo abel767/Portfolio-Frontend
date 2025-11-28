@@ -37,9 +37,9 @@ export function MobilePortfolio() {
           <p className="text-white/60 font-mono mb-2">
             © 2025 Abel Thomas. All rights reserved.
           </p>
-          <p className="text-white/40 font-mono">
+          {/* <p className="text-white/40 font-mono">
             Built with React & Tailwind CSS
-          </p>
+          </p> */}
         </div>
       </footer>
     </div>
