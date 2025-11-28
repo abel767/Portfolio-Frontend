@@ -46,20 +46,23 @@ export function MobileProjects() {
 
         {/* Title */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <div className="inline-block px-3 py-1 bg-accent text-accent-foreground border border-border mb-6 font-mono rounded-md">
-            Projects
-          </div>
+  initial={{ opacity: 0, y: 20 }}
+  animate={isInView ? { opacity: 1, y: 0 } : {}}
+  transition={{ duration: 0.6 }}
+  className="mb-12"
+>
+  {/* Neon Project Label */}
+  <div className="inline-block px-3 py-1 bg-[#00ffff]/10 border border-[#00ffff]/30 text-[#00ffff] mb-4 font-mono rounded-md">
+    Projects
+  </div>
 
-          <h2 className="text-foreground mb-4">Featured Work</h2>
-          <p className="text-muted-foreground">
-            A selection of cybersecurity and automation projects that I’ve built.
-          </p>
-        </motion.div>
+  <h2 className="text-[#00ffff] text-3xl font-semibold mb-4 drop-shadow-[0_0_6px_rgb(0,255,255)]">
+    Featured Work
+  </h2>
+  <p className="text-muted-foreground">
+    A selection of cybersecurity and automation projects that I’ve built.
+  </p>
+</motion.div>
 
         {/* MAIN PROJECTS */}
         <div className="space-y-8">
@@ -71,18 +74,11 @@ export function MobileProjects() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group relative"
             >
-              <div className="
-                relative p-6 
-                bg-card 
-                border border-border 
-                hover:border-accent 
-                transition-all duration-300 
-                rounded-2xl
-              ">
+              <div className="relative p-6 bg-card border border-border hover:border-accent transition-all duration-300 rounded-2xl">
                 <div className="space-y-4">
 
-                  {/* Title */}
-                  <h3 className="text-foreground group-hover:text-accent transition-colors">
+                  {/* Title with neon */}
+                  <h3 className="text-accent group-hover:text-accent transition-colors font-semibold text-lg">
                     {project.title}
                   </h3>
 
@@ -96,15 +92,7 @@ export function MobileProjects() {
                     {project.tags.map(tag => (
                       <span
                         key={tag}
-                        className="
-                          px-2 py-1 
-                          bg-muted 
-                          text-muted-foreground 
-                          border border-border 
-                          rounded
-                          font-mono
-                          text-xs
-                        "
+                        className="px-2 py-1 bg-muted text-muted-foreground border border-border rounded font-mono text-xs"
                       >
                         {tag}
                       </span>
@@ -140,7 +128,7 @@ export function MobileProjects() {
               >
                 <div className="relative p-6 bg-card border border-border hover:border-accent transition-all duration-300 rounded-2xl">
                   <div className="space-y-4">
-                    <h3 className="text-foreground group-hover:text-accent transition-colors">
+                    <h3 className="text-accent group-hover:text-accent transition-colors font-semibold text-lg">
                       {project.title}
                     </h3>
 
@@ -185,13 +173,7 @@ export function MobileProjects() {
         >
           <button
             onClick={() => setShowMore(!showMore)}
-            className="
-              inline-flex items-center gap-2 px-6 py-3 
-              border border-border 
-              text-foreground 
-              hover:border-accent hover:text-accent 
-              transition-colors font-mono rounded-md
-            "
+            className="inline-flex items-center gap-2 px-6 py-3 border border-border text-foreground hover:border-accent hover:text-accent transition-colors font-mono rounded-md"
           >
             <span>{showMore ? "Show less" : "Show more"}</span>
             <ExternalLink className="w-4 h-4" />

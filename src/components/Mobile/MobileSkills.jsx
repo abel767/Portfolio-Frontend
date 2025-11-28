@@ -1,5 +1,5 @@
-import { motion, useInView } from "motion/react";
 import { useRef } from "react";
+import { motion, useInView } from "motion/react";
 import { Database, Server, Code2, Shield, Lock, FileSearch, Globe, Zap } from 'lucide-react';
 
 export function MobileSkills() {
@@ -39,20 +39,23 @@ export function MobileSkills() {
 
   return (
     <section id="skills" ref={ref} className="min-h-screen bg-background py-20 px-6">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto text-center">
 
-        {/* Title */}
+        {/* Section Title with neon style */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-12 text-center"
+          className="mb-12"
         >
-          <div className="inline-block px-3 py-1 bg-accent/20 border border-accent/40 text-accent mb-6 font-mono">
+          <div className="inline-block px-3 py-1 bg-[#00ffff]/10 border border-[#00ffff]/30 text-[#00ffff] mb-4 font-mono rounded-md">
             Skills
           </div>
 
-          <h2 className="text-foreground mb-4">Technical Expertise</h2>
+          <h2 className="text-[#00ffff] text-3xl font-semibold mb-4 drop-shadow-[0_0_6px_rgb(0,255,255)]">
+            Technical Expertise
+          </h2>
+
           <p className="text-muted-foreground">
             Hands-on experience across cybersecurity, SOC operations, penetration testing,
             full-stack development, and modern tooling.
@@ -68,16 +71,15 @@ export function MobileSkills() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: catIndex * 0.15 }}
             >
+              {/* Category title with subtle neon adaptation */}
               <h3 className="text-foreground mb-6 pb-2 border-b border-white/10">
                 {category.category}
               </h3>
 
-              {/* For Cybersecurity + MERN */}
               {category.category !== "Tools & Technologies" ? (
                 <div className="grid grid-cols-2 gap-5">
                   {category.skills.map((skill, skillIndex) => {
                     const Icon = skill.icon;
-
                     return (
                       <motion.div
                         key={skill.name}
@@ -92,14 +94,12 @@ export function MobileSkills() {
                         <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/30 flex items-center justify-center mb-3">
                           <Icon className="w-6 h-6 text-accent" />
                         </div>
-
                         <span className="text-foreground text-xs">{skill.name}</span>
                       </motion.div>
                     );
                   })}
                 </div>
               ) : (
-                /* Tools & Technologies */
                 <div className="flex flex-wrap gap-3">
                   {category.skills.map((tech, idx) => (
                     <motion.span
