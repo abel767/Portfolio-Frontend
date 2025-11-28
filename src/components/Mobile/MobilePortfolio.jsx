@@ -1,71 +1,47 @@
-import MobileHeader from "./MobileHeader";
-import MobileAbout from "./MobileAbout";
-import MobileProjects from "./MobileProjects";
-import MobileSkills from "./MobileSkills";
-import MobileContact from "./MobileContact";
-import { useState, useEffect } from "react"; 
+import { TabBar } from "./TabBar";
+import { MobileHeader } from "./MobileHeader";
+import { MobileAbout } from "./MobileAbout";
+import { MobileProjects } from "./MobileProjects";
+import { MobileSkills } from "./MobileSkills";
+import { MobileContact } from "./MobileContact";
 
 export function MobilePortfolio() {
-  const [tab, setTab] = useState("about");
-  const [showTabsAndContent, setShowTabsAndContent] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Show tabs and content when scrolled past 80% of viewport height
-      const scrollThreshold = window.innerHeight * 0.8;
-      setShowTabsAndContent(window.scrollY > scrollThreshold);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <div className="bg-black text-white w-full min-h-screen overflow-x-hidden">
+    <div className="bg-black text-white w-full overflow-x-hidden">
+      {/* TabBar */}
+      <TabBar />
 
-      {/* 1. HERO SECTION - Full screen header */}
+      {/* Header */}
       <MobileHeader />
 
-      {/* 2. TAB BAR - Only visible after scrolling, then becomes sticky */}
-      <div 
-        className={`sticky top-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10 transition-opacity duration-300 ${
-          showTabsAndContent ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="flex justify-around py-3">
-          {[
-            { id: "about", label: "About" },
-            { id: "projects", label: "Projects" },
-            { id: "skills", label: "Skills" },
-            { id: "contact", label: "Contact" },
-          ].map((item) => (
-            <button
-                key={item.id}
-                onClick={() => setTab(item.id)}
-                className={`text-sm transition-colors px-3 pb-1 ${
-                    tab === item.id 
-                    ? "text-cyan-300 border-b-2 border-cyan-400" 
-                    : "text-white/60"
-                }`}
-            >
-                {item.label}
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* Sections */}
+      <section id="about">
+        <MobileAbout />
+      </section>
 
-      {/* 3. MAIN CONTENT - Fades in after scrolling */}
-      <main 
-        className={`px-6 py-8 -mt-4 min-h-screen transition-opacity duration-500 ${
-          showTabsAndContent ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {tab === "about" && <MobileAbout />}
-        {tab === "projects" && <MobileProjects />}
-        {tab === "skills" && <MobileSkills />}
-        {tab === "contact" && <MobileContact />}
-      </main>
-      
+      <section id="projects">
+        <MobileProjects />
+      </section>
+
+      <section id="skills">
+        <MobileSkills />
+      </section>
+
+      <section id="contact">
+        <MobileContact />
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-black border-t border-white/10 py-8 px-6 mt-8">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-white/60 font-mono mb-2">
+            © 2025 Abel Thomas. All rights reserved.
+          </p>
+          <p className="text-white/40 font-mono">
+            Built with React & Tailwind CSS
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

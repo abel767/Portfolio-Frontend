@@ -1,8 +1,27 @@
-import { useState } from "react";
-import { Mail, User, MessageSquare, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { useState, useRef } from "react";
+import { motion, useInView } from "motion/react";
+import { Mail, Github, Linkedin, Send, CheckCircle, AlertCircle } from "lucide-react";
+
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export default function MobileContact() {
+const MediumIcon = (props) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 1043.63 592.71"
+    fill="currentColor"
+  >
+    <path d="M588.67 296.35c0 163.69-131.66 296.35-294.34 296.35S0 460 0 296.35 131.66 0 294.33 0s294.34 132.66 294.34 296.35M826.12 296.35c0 154.78-65.83 280.27-147.02 280.27s-147.03-125.49-147.03-280.27S597.9 16.08 679.1 16.08s147.02 125.49 147.02 280.27M1043.63 296.35c0 144.42-23.49 261.53-52.48 261.53s-52.48-117.11-52.48-261.53S962.16 34.82 991.15 34.82s52.48 117.11 52.48 261.53"/>
+  </svg>
+);
+
+
+
+
+export  function MobileContact() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,18 +34,24 @@ export default function MobileContact() {
     error: null,
   });
 
+  const [focusedField, setFocusedField] = useState(null);
+
+  const socialLinks = [
+    { name: "GitHub", icon: Github, url: "https://github.com/abel767", handle: "@abel767" },
+    { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/abel-thomas-60193b27b", handle: "abel-thomas-60193b27b" },
+    { name: "Medium", icon: MediumIcon, url: "https://medium.com/@abelthomas946", handle: "@abelthomas946" },
+  ];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus({ loading: true, success: false, error: null });
 
     try {
-   const response = await fetch(`${BACKEND_URL}/api/contact`, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(formData),
-});
+      const response = await fetch(`${BACKEND_URL}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
 
@@ -34,15 +59,9 @@ export default function MobileContact() {
         setStatus({ loading: false, success: true, error: null });
         setFormData({ name: "", email: "", message: "" });
 
-        setTimeout(() => {
-          setStatus({ loading: false, success: false, error: null });
-        }, 4000);
+        setTimeout(() => setStatus({ loading: false, success: false, error: null }), 4000);
       } else {
-        setStatus({
-          loading: false,
-          success: false,
-          error: data.message || "Failed to send message",
-        });
+        setStatus({ loading: false, success: false, error: data.message || "Failed to send message" });
       }
     } catch (error) {
       setStatus({
@@ -54,113 +73,156 @@ export default function MobileContact() {
   };
 
   return (
-    <div className="w-full min-h-screen px-5 py-10 bg-black text-white">
-      <div className="max-w-md mx-auto space-y-8">
-
+    <section ref={ref} id="contact" className="min-h-screen bg-black py-20 px-6">
+      <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <div className="text-center space-y-2">
-          <h2 className="text-3xl font-semibold">Contact Me</h2>
-          <p className="text-gray-400 text-sm">
-            Have something to discuss? Let's connect.
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mb-12 text-center"
+        >
+          <div className="inline-block px-3 py-1 bg-[#00ffff]/10 border border-[#00ffff]/30 text-[#00ffff] mb-6 font-mono">
+            Contact
+          </div>
+          <h2 className="text-white mb-4 text-3xl font-semibold">Let's Connect</h2>
+          <p className="text-muted-foreground">
+            Have a project in mind or just want to chat? Reach out, I usually respond within 24 hours.
           </p>
-        </div>
+        </motion.div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          
-          {/* Name */}
-          <div className="space-y-2">
-            <label htmlFor="name" className="flex items-center gap-2 text-sm text-gray-300">
-              <User className="w-4 h-4 text-cyan-400" />
-              Name
-            </label>
-            <input
-              id="name"
-              type="text"
-              name="name"
-              required
-              disabled={status.loading}
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full p-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-gray-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30 transition-all"
-              placeholder="Your name"
-            />
-          </div>
+        <motion.form
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          onSubmit={handleSubmit}
+          className="space-y-6 mb-12"
+        >
+          {["name", "email", "message"].map((field) => {
+            const isTextarea = field === "message";
+            const Icon = field === "name" ? null : field === "email" ? Mail : null;
+            return (
+              <div key={field}>
+                <label htmlFor={field} className="block mb-2 text-white/90 capitalize">{field}</label>
+                {isTextarea ? (
+                  <textarea
+                    id={field}
+                    rows={5}
+                    placeholder="Tell me about your project..."
+                    value={formData[field]}
+                    disabled={status.loading}
+                    onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
+                    onFocus={() => setFocusedField(field)}
+                    onBlur={() => setFocusedField(null)}
+                    className="w-full px-4 py-3 bg-white/[0.02] border text-white placeholder-white/30 focus:outline-none transition-all duration-300 resize-none"
+                    style={{ borderColor: focusedField === field ? "#00ffff" : "rgba(255,255,255,0.1)" }}
+                  />
+                ) : (
+                  <input
+                    id={field}
+                    type={field === "email" ? "email" : "text"}
+                    placeholder={field === "name" ? "Your name" : "your.email@example.com"}
+                    value={formData[field]}
+                    disabled={status.loading}
+                    onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
+                    onFocus={() => setFocusedField(field)}
+                    onBlur={() => setFocusedField(null)}
+                    className="w-full px-4 py-3 bg-white/[0.02] border text-white placeholder-white/30 focus:outline-none transition-all duration-300"
+                    style={{ borderColor: focusedField === field ? "#00ffff" : "rgba(255,255,255,0.1)" }}
+                  />
+                )}
+              </div>
+            );
+          })}
 
-          {/* Email */}
-          <div className="space-y-2">
-            <label htmlFor="email" className="flex items-center gap-2 text-sm text-gray-300">
-              <Mail className="w-4 h-4 text-cyan-400" />
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              required
-              disabled={status.loading}
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full p-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-gray-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30 transition-all"
-              placeholder="your.email@example.com"
-            />
-          </div>
-
-          {/* Message */}
-          <div className="space-y-2">
-            <label htmlFor="message" className="flex items-center gap-2 text-sm text-gray-300">
-              <MessageSquare className="w-4 h-4 text-cyan-400" />
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              required
-              rows={5}
-              disabled={status.loading}
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full p-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-gray-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30 transition-all resize-none"
-              placeholder="Tell me about your project..."
-            />
-          </div>
-
-          {/* Success */}
+          {/* Status messages */}
           {status.success && (
-            <div className="flex gap-2 items-center p-3 bg-green-600/20 border border-green-600/40 text-green-400 rounded-lg text-sm">
-              <CheckCircle className="w-5 h-5" />
-              Message sent successfully!
+            <div className="flex items-center gap-2 p-3 bg-green-600/20 border border-green-600/40 text-green-400 rounded-lg text-sm">
+              <CheckCircle className="w-5 h-5" /> Message sent successfully!
             </div>
           )}
-
-          {/* Error */}
           {status.error && (
-            <div className="flex gap-2 items-center p-3 bg-red-600/20 border border-red-600/40 text-red-400 rounded-lg text-sm">
-              <AlertCircle className="w-5 h-5" />
-              {status.error}
+            <div className="flex items-center gap-2 p-3 bg-red-600/20 border border-red-600/40 text-red-400 rounded-lg text-sm">
+              <AlertCircle className="w-5 h-5" /> {status.error}
             </div>
           )}
 
-          {/* Button */}
           <button
             type="submit"
             disabled={status.loading}
-            className="w-full flex justify-center items-center gap-2 p-3 bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-lg hover:bg-cyan-500/30 transition-all disabled:opacity-50"
+            className="w-full px-6 py-4 bg-[#00ffff] text-black hover:bg-[#00ffff]/90 transition-colors font-mono flex items-center justify-center gap-2"
           >
-            {status.loading ? (
-              <>
-                <div className="w-4 h-4 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
-                Sending...
-              </>
-            ) : (
-              <>
-                <Send className="w-4 h-4" />
-                Send Message
-              </>
-            )}
+            {status.loading ? "Sending..." : <>
+              <Send className="w-5 h-5" /> Send Message
+            </>}
           </button>
-        </form>
+        </motion.form>
+
+        {/* Divider */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="relative my-12"
+        >
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-white/10" />
+          </div>
+          <div className="relative flex justify-center">
+            <span className="px-4 bg-black text-muted-foreground font-mono">or reach out via</span>
+          </div>
+        </motion.div>
+
+        {/* Social links */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="space-y-4"
+        >
+          {/* Email */}
+          <a
+            href="mailto:abel.thomas@email.com"
+            className="group flex items-center gap-4 p-4 bg-white/[0.02] border border-white/10 hover:border-[#00ffff]/30 transition-all duration-300"
+          >
+            <div className="p-3 bg-[#00ffff]/10 border border-[#00ffff]/20">
+              <Mail className="w-5 h-5 text-[#00ffff]" />
+            </div>
+            <div className="flex-1">
+              <div className="text-white/70 font-mono mb-1">Email</div>
+              <div className="text-white group-hover:text-[#00ffff] transition-colors">
+                abel.thomas@email.com
+              </div>
+            </div>
+          </a>
+
+          {/* Social */}
+          {socialLinks.map((link, index) => {
+            const Icon = link.icon;
+            return (
+              <motion.a
+                key={link.name}
+                href={link.url}
+                initial={{ opacity: 0, y: 10 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
+                className="group flex items-center gap-4 p-4 bg-white/[0.02] border border-white/10 hover:border-[#00ffff]/30 transition-all duration-300"
+              >
+                <div className="p-3 bg-white/[0.05] border border-white/10 group-hover:border-[#00ffff]/20 transition-colors">
+                  <Icon className="w-5 h-5 text-white/70 group-hover:text-[#00ffff] transition-colors" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-white/70 font-mono mb-1">{link.name}</div>
+                  <div className="text-white group-hover:text-[#00ffff] transition-colors">
+                    {link.handle}
+                  </div>
+                </div>
+              </motion.a>
+            );
+          })}
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 }
