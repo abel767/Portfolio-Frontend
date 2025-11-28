@@ -1,4 +1,3 @@
-// src/components/Mobile/MobileHeader.jsx
 import { motion } from "motion/react";
 import { ChevronDown } from "lucide-react";
 
@@ -10,20 +9,22 @@ export function MobileHeader() {
     });
   };
 
+  // Define the common grid style (background-image) separately
+  const gridBackgroundStyle = {
+    backgroundImage:
+      "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
+  };
+
   return (
     <section className="min-h-screen bg-black flex flex-col items-center justify-center px-6 relative overflow-visible">
       
       {/* Grid background */}
-     <div className="absolute inset-0 opacity-[0.05] sm:opacity-[0.02]">
-  <div
-    className="h-full"
-    style={{
-      backgroundImage:
-        "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
-      backgroundSize: window.innerWidth < 768 ? "30px 30px" : "60px 60px", // smaller for mobile
-    }}
-  />
-</div>
+      <div className="absolute inset-0 opacity-[0.05] sm:opacity-[0.02]">
+        <div
+          className="h-full bg-grid-sm sm:bg-grid-lg" // <--- FIXED: Use new Tailwind classes
+          style={gridBackgroundStyle} // <--- Only uses the background image style
+        />
+      </div>
 
       {/* Main content */}
       <div className="relative z-10 text-center max-w-md">

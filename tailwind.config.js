@@ -7,6 +7,12 @@ export default {
   ],
   theme: {
     extend: {
+      // *** ADD THIS BLOCK ***
+      backgroundSize: {
+        'grid-sm': '30px 30px', // Mobile size (default)
+        'grid-lg': '60px 60px', // Desktop size (used with sm: prefix)
+      },
+      // **********************
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -20,7 +26,7 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
-
+        // ... (rest of the colors)
         popover: {
           DEFAULT: 'hsl(var(--popover))',
           foreground: 'hsl(var(--popover-foreground))',
