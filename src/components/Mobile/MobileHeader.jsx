@@ -12,23 +12,23 @@ export function MobileHeader() {
   return (
     <section className="min-h-screen bg-black flex flex-col items-center justify-center px-6 relative overflow-hidden">
       
-      {/* Grid background - Mobile optimized */}
+      {/* Grid background - Mobile only (real mobile devices) */}
       <div 
-        className="absolute inset-0 sm:hidden"
+        className="absolute inset-0 md:hidden"
         style={{
           backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.7) 2px, transparent 2px), linear-gradient(90deg, rgba(255, 255, 255, 0.7) 2px, transparent 2px)",
           backgroundSize: '30px 30px',
         }}
       />
       
-      {/* Grid background - Desktop */}
-      {/* <div 
-        className="absolute inset-0 hidden sm:block"
+      {/* Grid background - Desktop and tablet */}
+      <div 
+        className="absolute inset-0 hidden md:block"
         style={{
-          backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)",
+          backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
           backgroundSize: '50px 50px',
         }}
-      /> */}
+      />
 
       {/* Main content */}
       <div className="relative z-10 text-center max-w-md">
