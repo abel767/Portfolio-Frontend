@@ -12,27 +12,18 @@ export function MobileHeader() {
   return (
     <section className="min-h-screen bg-black flex flex-col items-center justify-center px-6 relative overflow-hidden">
       
-      {/* Grid background - Extra small devices (phones) */}
+      {/* Grid background - All mobile devices (phones and tablets) */}
       <div 
-        className="absolute inset-0 sm:hidden"
+        className="absolute inset-0 lg:hidden"
         style={{
-          backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px)",
-          backgroundSize: '25px 25px',
-        }}
-      />
-      
-      {/* Grid background - Small to medium devices (tablets like iPad) */}
-      <div 
-        className="absolute inset-0 hidden sm:block md:hidden"
-        style={{
-          backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.7) 2px, transparent 2px), linear-gradient(90deg, rgba(255, 255, 255, 0.7) 2px, transparent 2px)",
+          backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.3) 2px, transparent 2px), linear-gradient(90deg, rgba(255, 255, 255, 0.3) 2px, transparent 2px)",
           backgroundSize: '30px 30px',
         }}
       />
       
-      {/* Grid background - Desktop */}
+      {/* Grid background - Desktop only (1024px+) */}
       <div 
-        className="absolute inset-0 hidden md:block"
+        className="absolute inset-0 hidden lg:block"
         style={{
           backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
           backgroundSize: '50px 50px',
