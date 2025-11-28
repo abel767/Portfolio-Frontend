@@ -9,36 +9,26 @@ export function MobileHeader() {
     });
   };
 
-  // Define the common grid style (background-image) separately
-  const gridBackgroundStyle = {
-    backgroundImage:
-      "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
-  };
-
   return (
-    <section className="min-h-screen bg-black flex flex-col items-center justify-center px-6 relative overflow-visible">
+    <section className="min-h-screen bg-black flex flex-col items-center justify-center px-6 relative overflow-hidden">
       
-      {/* Grid background - Mobile */}
-      <div className="absolute inset-0 opacity-[0.05] sm:hidden">
-        <div
-          className="h-full w-full"
-          style={{
-            ...gridBackgroundStyle,
-            backgroundSize: '20px 20px',
-          }}
-        />
-      </div>
+      {/* Grid background - Mobile optimized */}
+      <div 
+        className="absolute inset-0 sm:hidden"
+        style={{
+          backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px)",
+          backgroundSize: '25px 25px',
+        }}
+      />
       
       {/* Grid background - Desktop */}
-      <div className="absolute inset-0 opacity-[0.02] hidden sm:block">
-        <div
-          className="h-full w-full"
-          style={{
-            ...gridBackgroundStyle,
-            backgroundSize: '40px 40px',
-          }}
-        />
-      </div>
+      <div 
+        className="absolute inset-0 hidden sm:block"
+        style={{
+          backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
+          backgroundSize: '50px 50px',
+        }}
+      />
 
       {/* Main content */}
       <div className="relative z-10 text-center max-w-md">
@@ -51,7 +41,7 @@ export function MobileHeader() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="mb-4 text-[#00ffff] font-mono tracking-wider"
+            className="mb-4 text-[#00ffff] font-mono tracking-wider text-sm"
           >
             CYBERSECURITY & FULL-STACK DEV
           </motion.div>
@@ -62,7 +52,7 @@ export function MobileHeader() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="text-muted-foreground mb-8 max-w-sm mx-auto leading-relaxed"
+            className="text-gray-400 mb-8 max-w-sm mx-auto leading-relaxed"
           >
             Cybersecurity & Web Developer crafting elegant digital experiences
             with clean code and creative solutions
@@ -71,17 +61,17 @@ export function MobileHeader() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.6 }}
-            className="flex gap-4 justify-center"
+            className="flex gap-4 justify-center flex-wrap"
           >
             <a
               href="#contact"
-              className="px-6 py-3 bg-[#00ffff] text-black font-mono hover:bg-[#00ffff]/90 transition-colors"
+              className="px-6 py-3 bg-[#00ffff] text-black font-mono hover:bg-[#00ffff]/90 transition-colors rounded"
             >
               Get in touch
             </a>
             <a
               href="#projects"
-              className="px-6 py-3 border border-white/20 text-white hover:border-[#00ffff] hover:text-[#00ffff] transition-colors font-mono"
+              className="px-6 py-3 border border-white/20 text-white hover:border-[#00ffff] hover:text-[#00ffff] transition-colors font-mono rounded"
             >
               View work
             </a>
@@ -96,6 +86,7 @@ export function MobileHeader() {
         transition={{ delay: 1.2, duration: 0.6 }}
         onClick={scrollToContent}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 hover:text-[#00ffff] transition-colors cursor-pointer"
+        aria-label="Scroll to content"
       >
         <span className="font-mono text-sm">Scroll</span>
         <motion.div
@@ -107,7 +98,7 @@ export function MobileHeader() {
       </motion.button>
 
       {/* Corner accent */}
-      <div className="absolute top-0 right-0 w-32 h-32">
+      <div className="absolute top-0 right-0 w-32 h-32 pointer-events-none">
         <div className="absolute top-0 right-0 w-full h-full border-r border-t border-[#00ffff]/20" />
       </div>
     </section>
