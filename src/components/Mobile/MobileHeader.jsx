@@ -18,11 +18,25 @@ export function MobileHeader() {
   return (
     <section className="min-h-screen bg-black flex flex-col items-center justify-center px-6 relative overflow-visible">
       
-      {/* Grid background */}
-      <div className="absolute inset-0 opacity-[0.05] sm:opacity-[0.02]">
+      {/* Grid background - Mobile */}
+      <div className="absolute inset-0 opacity-[0.05] sm:hidden">
         <div
-          className="h-full bg-grid-sm sm:bg-grid-lg" // <--- FIXED: Use new Tailwind classes
-          style={gridBackgroundStyle} // <--- Only uses the background image style
+          className="h-full w-full"
+          style={{
+            ...gridBackgroundStyle,
+            backgroundSize: '20px 20px',
+          }}
+        />
+      </div>
+      
+      {/* Grid background - Desktop */}
+      <div className="absolute inset-0 opacity-[0.02] hidden sm:block">
+        <div
+          className="h-full w-full"
+          style={{
+            ...gridBackgroundStyle,
+            backgroundSize: '40px 40px',
+          }}
         />
       </div>
 
@@ -41,11 +55,9 @@ export function MobileHeader() {
           >
             CYBERSECURITY & FULL-STACK DEV
           </motion.div>
-
           <h1 className="text-white mb-6 tracking-tight text-4xl font-bold">
             Abel Thomas
           </h1>
-
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -55,7 +67,6 @@ export function MobileHeader() {
             Cybersecurity & Web Developer crafting elegant digital experiences
             with clean code and creative solutions
           </motion.p>
-
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -86,7 +97,7 @@ export function MobileHeader() {
         onClick={scrollToContent}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 hover:text-[#00ffff] transition-colors cursor-pointer"
       >
-        <span className="font-mono">Scroll</span>
+        <span className="font-mono text-sm">Scroll</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
