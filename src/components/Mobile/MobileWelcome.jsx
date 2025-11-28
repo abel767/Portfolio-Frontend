@@ -81,35 +81,80 @@ export default function MobileWelcome({ onFinish }) {
               
               {/* Inner content - AT monogram with glitch */}
               <motion.div
-                className="absolute inset-0 flex items-center justify-center text-[#00ffff] text-2xl font-bold font-mono"
+                className="absolute inset-0 flex items-center justify-center text-2xl font-bold font-mono"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
+                {/* Main AT text */}
                 <motion.span
+                  className="relative z-10"
+                  style={{ color: "#00ffff" }}
                   animate={{
                     x: [0, -4, 6, -5, 7, -3, 4, -2, 3, 0],
                     y: [0, 3, -4, 5, -6, 4, -3, 2, -2, 0],
                     scaleX: [1, 0.95, 1.08, 0.92, 1.1, 0.98, 1.05, 0.96, 1.03, 1],
                     scaleY: [1, 1.05, 0.93, 1.1, 0.88, 1.06, 0.95, 1.04, 0.97, 1],
-                    textShadow: [
-                      "0 0 0 rgba(0, 255, 255, 0)",
-                      "-4px 2px 0 rgba(255, 0, 0, 0.9), 4px -2px 0 rgba(0, 255, 0, 0.9)",
-                      "5px -3px 0 rgba(255, 0, 0, 0.9), -5px 3px 0 rgba(0, 0, 255, 0.9)",
-                      "-6px 0 0 rgba(0, 255, 0, 1), 6px 0 0 rgba(255, 0, 0, 1)",
-                      "3px 4px 0 rgba(255, 0, 255, 0.8), -3px -4px 0 rgba(0, 255, 255, 0.8)",
-                      "-5px -2px 0 rgba(255, 255, 0, 0.9), 5px 2px 0 rgba(255, 0, 0, 0.9)",
-                      "4px 0 0 rgba(0, 255, 0, 0.8), -4px 0 0 rgba(0, 0, 255, 0.8)",
-                      "-2px 3px 0 rgba(255, 0, 0, 0.7), 2px -3px 0 rgba(0, 255, 0, 0.7)",
-                      "3px -1px 0 rgba(0, 255, 255, 0.6), -3px 1px 0 rgba(255, 0, 255, 0.6)",
-                      "0 0 0 rgba(0, 255, 255, 0)"
-                    ]
                   }}
                   transition={{
                     duration: 0.5,
                     delay: 1.5,
                     times: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.85, 1],
                     ease: "easeInOut"
+                  }}
+                >
+                  AT
+                </motion.span>
+                
+                {/* Red glitch layer */}
+                <motion.span
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ color: "#ff0000", opacity: 0 }}
+                  animate={{
+                    x: [0, -5, 7, -6, 8, -4, 5, 0],
+                    y: [0, 3, -4, 5, -5, 3, -2, 0],
+                    opacity: [0, 0.8, 0, 0.9, 0, 0.7, 0, 0]
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 1.5,
+                    times: [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1],
+                  }}
+                >
+                  AT
+                </motion.span>
+                
+                {/* Green glitch layer */}
+                <motion.span
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ color: "#00ff00", opacity: 0 }}
+                  animate={{
+                    x: [0, 6, -7, 8, -6, 4, -3, 0],
+                    y: [0, -3, 4, -5, 6, -3, 2, 0],
+                    opacity: [0, 0, 0.8, 0, 0.9, 0, 0.7, 0]
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 1.5,
+                    times: [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1],
+                  }}
+                >
+                  AT
+                </motion.span>
+                
+                {/* Blue glitch layer */}
+                <motion.span
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ color: "#0000ff", opacity: 0 }}
+                  animate={{
+                    x: [0, 5, -6, 7, -5, 3, -4, 0],
+                    y: [0, -4, 3, -6, 5, -2, 3, 0],
+                    opacity: [0, 0.7, 0, 0, 0.8, 0, 0, 0]
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 1.5,
+                    times: [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1],
                   }}
                 >
                   AT
