@@ -141,8 +141,57 @@ export function MobileProjects() {
             </motion.span>
           </div>
 
-          <h2 className="text-white mb-4 text-3xl font-bold">
-            Featured Work
+          <h2 className="text-white mb-4 text-3xl font-bold relative">
+            <span className="relative z-10">Featured Work</span>
+            {/* Red glitch */}
+            <motion.span
+              className="absolute inset-0 text-red-500"
+              animate={{
+                opacity: [0, 0, 0.8, 0, 0],
+                x: [0, -4, 5, 0],
+                y: [0, 2, -2, 0],
+              }}
+              transition={{
+                duration: 0.2,
+                repeat: Infinity,
+                repeatDelay: 2,
+              }}
+            >
+              Featured Work
+            </motion.span>
+            {/* Cyan glitch */}
+            <motion.span
+              className="absolute inset-0 text-[#00ffff]"
+              animate={{
+                opacity: [0, 0, 0, 0.7, 0, 0],
+                x: [0, 5, -4, 0],
+                y: [0, -2, 2, 0],
+              }}
+              transition={{
+                duration: 0.2,
+                repeat: Infinity,
+                repeatDelay: 2,
+                delay: 0.05,
+              }}
+            >
+              Featured Work
+            </motion.span>
+            {/* Green glitch */}
+            <motion.span
+              className="absolute inset-0 text-green-500"
+              animate={{
+                opacity: [0, 0.6, 0, 0, 0],
+                x: [0, 3, -3, 0],
+              }}
+              transition={{
+                duration: 0.2,
+                repeat: Infinity,
+                repeatDelay: 2,
+                delay: 0.1,
+              }}
+            >
+              Featured Work
+            </motion.span>
           </h2>
           <p className="text-gray-400">
             A selection of cybersecurity and automation projects that I've built.
@@ -297,57 +346,119 @@ export function MobileProjects() {
         >
           <motion.button
             onClick={() => setShowMore(!showMore)}
-            className="relative inline-flex items-center gap-2 px-6 py-3 border-2 border-[#00ffff]/30 text-white hover:border-[#00ffff] hover:text-[#00ffff] transition-colors font-mono rounded overflow-hidden group"
+            className="relative inline-flex items-center gap-2 px-6 py-3 border-2 border-[#00ffff]/30 text-white font-mono rounded overflow-hidden group"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            animate={{
+              borderColor: [
+                "rgba(0, 255, 255, 0.3)",
+                "rgba(255, 0, 0, 0.6)",
+                "rgba(0, 255, 0, 0.6)",
+                "rgba(0, 0, 255, 0.6)",
+                "rgba(0, 255, 255, 0.3)"
+              ]
+            }}
+            transition={{
+              borderColor: { duration: 0.2, repeat: Infinity, repeatDelay: 1.5 }
+            }}
           >
-            {/* Button glitch layers */}
+            {/* Button glitch layers - FASTER */}
             <motion.span
               className="absolute inset-0 bg-red-500"
-              initial={{ x: "-100%" }}
               animate={{
                 x: ["-100%", "-100%", "0%", "100%", "100%"],
-                opacity: [0, 0, 0.1, 0.1, 0],
-              }}
-              transition={{
-                duration: 0.3,
-                repeat: Infinity,
-                repeatDelay: 5,
-              }}
-            />
-            <motion.span
-              className="absolute inset-0 bg-[#00ffff]"
-              initial={{ x: "100%" }}
-              animate={{
-                x: ["100%", "100%", "0%", "-100%", "-100%"],
-                opacity: [0, 0, 0.1, 0.1, 0],
-              }}
-              transition={{
-                duration: 0.3,
-                repeat: Infinity,
-                repeatDelay: 5,
-                delay: 0.1,
-              }}
-            />
-
-            <span className="relative z-10">{showMore ? "Show less" : "Show more"}</span>
-            <ExternalLink className="w-4 h-4 relative z-10" />
-
-            {/* Button text glitch on hover */}
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center text-red-500 font-mono"
-              initial={{ opacity: 0 }}
-              whileHover={{
-                opacity: [0, 0, 0.7, 0, 0],
-                x: [0, -2, 2, 0],
+                opacity: [0, 0, 0.2, 0.2, 0],
               }}
               transition={{
                 duration: 0.15,
                 repeat: Infinity,
-                repeatDelay: 0.5,
+                repeatDelay: 1.5,
+              }}
+            />
+            <motion.span
+              className="absolute inset-0 bg-[#00ffff]"
+              animate={{
+                x: ["100%", "100%", "0%", "-100%", "-100%"],
+                opacity: [0, 0, 0.2, 0.2, 0],
+              }}
+              transition={{
+                duration: 0.15,
+                repeat: Infinity,
+                repeatDelay: 1.5,
+                delay: 0.05,
+              }}
+            />
+            <motion.span
+              className="absolute inset-0 bg-green-500"
+              animate={{
+                x: ["-100%", "-100%", "0%", "100%", "100%"],
+                opacity: [0, 0, 0.15, 0.15, 0],
+              }}
+              transition={{
+                duration: 0.15,
+                repeat: Infinity,
+                repeatDelay: 1.5,
+                delay: 0.1,
+              }}
+            />
+
+            {/* Main text */}
+            <span className="relative z-10">{showMore ? "Show less" : "Show more"}</span>
+            <ExternalLink className="w-4 h-4 relative z-10" />
+
+            {/* Button text glitch - RED */}
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center gap-2 text-red-500 font-mono"
+              animate={{
+                opacity: [0, 0, 0.9, 0, 0],
+                x: [0, -4, 4, 0],
+                y: [0, 1, -1, 0],
+              }}
+              transition={{
+                duration: 0.12,
+                repeat: Infinity,
+                repeatDelay: 1.5,
               }}
             >
-              {showMore ? "Show less" : "Show more"}
+              <span>{showMore ? "Show less" : "Show more"}</span>
+              <ExternalLink className="w-4 h-4" />
+            </motion.div>
+
+            {/* Green glitch layer */}
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center gap-2 text-green-500 font-mono"
+              animate={{
+                opacity: [0, 0, 0, 0.8, 0, 0],
+                x: [0, 4, -4, 0],
+                y: [0, -1, 1, 0],
+              }}
+              transition={{
+                duration: 0.12,
+                repeat: Infinity,
+                repeatDelay: 1.5,
+                delay: 0.04,
+              }}
+            >
+              <span>{showMore ? "Show less" : "Show more"}</span>
+              <ExternalLink className="w-4 h-4" />
+            </motion.div>
+
+            {/* Blue glitch layer */}
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center gap-2 text-blue-500 font-mono"
+              animate={{
+                opacity: [0, 0.7, 0, 0, 0],
+                x: [0, 3, -3, 0],
+              }}
+              transition={{
+                duration: 0.12,
+                repeat: Infinity,
+                repeatDelay: 1.5,
+                delay: 0.08,
+              }}
+            >
+              <span>{showMore ? "Show less" : "Show more"}</span>
+              <ExternalLink className="w-4 h-4" />
             </motion.div>
           </motion.button>
         </motion.div>
