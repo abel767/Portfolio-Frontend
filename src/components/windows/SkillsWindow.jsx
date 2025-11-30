@@ -1,90 +1,304 @@
+import { motion } from 'motion/react';
 import { Database, Server, Code2, Shield, Lock, FileSearch, Globe, Zap } from 'lucide-react';
 
 export function SkillsWindow() {
 
   const cyberSkills = [
-    { name: 'SIEM (Splunk)', icon: Shield },         
-    { name: 'SOAR Automation', icon: Zap },         
-    { name: 'Incident Triage', icon: FileSearch },  
-    { name: 'Log Analysis (SPL)', icon: Code2 },   
-    { name: 'Wazuh', icon: Server },                
-    { name: 'Network Monitoring', icon: Globe },   
+    { name: 'SOC Monitoring', icon: Shield },
+    { name: 'Splunk & Snort Integration', icon: FileSearch },
+    { name: 'Incident Triage & Log Analysis', icon: Code2 },
+    { name: 'Wireshark / Network Analysis', icon: Globe },
+    { name: 'Ethical Penetration Testing', icon: Lock },
+    { name: 'Automation & SOAR Tools', icon: Zap },
   ];
 
   const mernSkills = [
+    { name: 'JavaScript', icon: Code2 },
     { name: 'React', icon: Code2 },
     { name: 'Node.js', icon: Zap },
     { name: 'MongoDB', icon: Database },
     { name: 'Express.js', icon: Server },
   ];
 
+  const tools = [
+    'Kali Linux', 'Metasploit', 'MSFvenom', 'Burp Suite', 'BeeF',
+    'Docker', 'Linux', 'Git', 'REST APIs', 'Shuffle SOAR', 'TheHive', 'VirusTotal API'
+  ];
+
   return (
-    <div className="p-10 max-h-[600px] overflow-y-auto text-white">
-      <div className="space-y-12">
+    <div className="p-10 max-h-[600px] overflow-y-auto text-white font-mono relative">
+      {/* Subtle scanlines */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-5"
+        style={{
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.1) 4px)',
+        }}
+      />
 
-        {/* Cybersecurity */}
-        <div>
-          <h3 className="text-3xl font-semibold mb-6 tracking-tight">Cybersecurity</h3>
+      <div className="space-y-12 relative z-10">
 
-          <div className="grid grid-cols-3 md:grid-cols-4 gap-6">
-            {cyberSkills.map((skill) => {
+        {/* Cybersecurity Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* Header with glitch */}
+          <motion.h3
+            className="text-3xl font-bold mb-6 tracking-tight relative"
+            animate={{
+              textShadow: [
+                '0 0 0 rgba(255,255,255,0)',
+                '0 0 10px rgba(255,255,255,0.3)',
+                '0 0 0 rgba(255,255,255,0)',
+              ],
+            }}
+            transition={{
+              duration: 0.2,
+              repeat: Infinity,
+              repeatDelay: 6,
+            }}
+          >
+            <span className="relative z-10">&gt; CYBERSECURITY</span>
+            <motion.span
+              className="absolute inset-0 text-white opacity-30"
+              animate={{
+                x: [0, -2, 2, 0],
+                opacity: [0, 0.3, 0, 0],
+              }}
+              transition={{
+                duration: 0.15,
+                repeat: Infinity,
+                repeatDelay: 6,
+              }}
+            >
+              &gt; CYBERSECURITY
+            </motion.span>
+            
+            <motion.div
+              className="absolute -bottom-2 left-0 h-0.5 bg-white"
+              initial={{ width: 0 }}
+              animate={{ width: '100px' }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            />
+          </motion.h3>
+
+          <div className="grid grid-cols-3 gap-5">
+            {cyberSkills.map((skill, index) => {
               const Icon = skill.icon;
               return (
-                <div 
-                  key={skill.name} 
-                  className="flex flex-col items-center p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg shadow-black/30 hover:bg-white/10 hover:border-white/20 transition-all duration-200 backdrop-blur-sm"
+                <motion.div
+                  key={skill.name}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: 0.1 * index }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="flex flex-col items-center p-5 rounded-lg bg-white/5 border border-white/20 hover:bg-white/10 hover:border-white/40 transition-all backdrop-blur-sm relative overflow-hidden group"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-blue-500/10 border border-blue-400/20 flex items-center justify-center mb-4 shadow-inner shadow-black/30">
-                    <Icon className="w-7 h-7 text-blue-400" />
+                  {/* Hover sweep */}
+                  <motion.div
+                    className="absolute inset-0 bg-white"
+                    initial={{ x: '-100%' }}
+                    whileHover={{
+                      x: '100%',
+                      opacity: [0, 0.05, 0.05, 0],
+                      transition: { duration: 0.5 }
+                    }}
+                  />
+
+                  {/* Glitch on hover */}
+                  <motion.div
+                    className="absolute inset-0 border border-white/0"
+                    whileHover={{
+                      borderColor: 'rgba(255, 255, 255, 0.2)',
+                    }}
+                    animate={{
+                      opacity: [0, 0, 0.5, 0, 0],
+                      x: [0, -1, 1, 0],
+                    }}
+                    transition={{
+                      duration: 0.1,
+                      repeat: Infinity,
+                      repeatDelay: 8,
+                    }}
+                  />
+
+                  <div className="w-12 h-12 rounded-lg bg-white/10 border border-white/30 flex items-center justify-center mb-3 relative z-10">
+                    <Icon className="w-6 h-6 text-white" />
                   </div>
-                  <span className="text-gray-200 text-sm font-medium text-center leading-snug">{skill.name}</span>
-                </div>
+                  <span className="text-white text-xs text-center leading-snug relative z-10">{skill.name}</span>
+                </motion.div>
               );
             })}
           </div>
-        </div>
+        </motion.div>
 
-        {/* MERN Stack */}
-        <div>
-          <h3 className="text-3xl font-semibold mb-6 tracking-tight">MERN Stack</h3>
+        {/* MERN Stack Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <motion.h3
+            className="text-3xl font-bold mb-6 tracking-tight relative"
+            animate={{
+              textShadow: [
+                '0 0 0 rgba(255,255,255,0)',
+                '0 0 10px rgba(255,255,255,0.3)',
+                '0 0 0 rgba(255,255,255,0)',
+              ],
+            }}
+            transition={{
+              duration: 0.2,
+              repeat: Infinity,
+              repeatDelay: 6,
+              delay: 0.5,
+            }}
+          >
+            <span className="relative z-10">&gt; MERN STACK</span>
+            <motion.span
+              className="absolute inset-0 text-white opacity-30"
+              animate={{
+                x: [0, -2, 2, 0],
+                opacity: [0, 0.3, 0, 0],
+              }}
+              transition={{
+                duration: 0.15,
+                repeat: Infinity,
+                repeatDelay: 6,
+                delay: 0.5,
+              }}
+            >
+              &gt; MERN STACK
+            </motion.span>
+            
+            <motion.div
+              className="absolute -bottom-2 left-0 h-0.5 bg-white"
+              initial={{ width: 0 }}
+              animate={{ width: '100px' }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            />
+          </motion.h3>
 
-          <div className="grid grid-cols-3 md:grid-cols-4 gap-6">
-            {mernSkills.map((skill) => {
+          <div className="grid grid-cols-3 gap-5">
+            {mernSkills.map((skill, index) => {
               const Icon = skill.icon;
               return (
-                <div 
-                  key={skill.name} 
-                  className="flex flex-col items-center p-6 rounded-2xl bg-white/5 border border-white/10 shadow-lg shadow-black/30 hover:bg-white/10 hover:border-white/20 transition-all duration-200 backdrop-blur-sm"
+                <motion.div
+                  key={skill.name}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: 0.3 + 0.1 * index }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="flex flex-col items-center p-5 rounded-lg bg-white/5 border border-white/20 hover:bg-white/10 hover:border-white/40 transition-all backdrop-blur-sm relative overflow-hidden group"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-cyan-500/10 border border-cyan-400/20 flex items-center justify-center mb-4 shadow-inner shadow-black/30">
-                    <Icon className="w-7 h-7 text-cyan-400" />
+                  <motion.div
+                    className="absolute inset-0 bg-white"
+                    initial={{ x: '-100%' }}
+                    whileHover={{
+                      x: '100%',
+                      opacity: [0, 0.05, 0.05, 0],
+                      transition: { duration: 0.5 }
+                    }}
+                  />
+
+                  <motion.div
+                    className="absolute inset-0 border border-white/0"
+                    whileHover={{
+                      borderColor: 'rgba(255, 255, 255, 0.2)',
+                    }}
+                    animate={{
+                      opacity: [0, 0, 0.5, 0, 0],
+                      x: [0, -1, 1, 0],
+                    }}
+                    transition={{
+                      duration: 0.1,
+                      repeat: Infinity,
+                      repeatDelay: 8,
+                    }}
+                  />
+
+                  <div className="w-12 h-12 rounded-lg bg-white/10 border border-white/30 flex items-center justify-center mb-3 relative z-10">
+                    <Icon className="w-6 h-6 text-white" />
                   </div>
-                  <span className="text-gray-200 text-sm font-medium text-center leading-snug">{skill.name}</span>
-                </div>
+                  <span className="text-white text-xs text-center leading-snug relative z-10">{skill.name}</span>
+                </motion.div>
               );
             })}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Tools Section */}
-        <div>
-          <h4 className="text-2xl font-semibold mb-5 tracking-tight">Tools & Technologies</h4>
+        {/* Tools & Technologies Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <motion.h4
+            className="text-2xl font-bold mb-5 tracking-tight relative"
+            animate={{
+              textShadow: [
+                '0 0 0 rgba(255,255,255,0)',
+                '0 0 10px rgba(255,255,255,0.3)',
+                '0 0 0 rgba(255,255,255,0)',
+              ],
+            }}
+            transition={{
+              duration: 0.2,
+              repeat: Infinity,
+              repeatDelay: 6,
+              delay: 1,
+            }}
+          >
+            <span className="relative z-10">&gt; TOOLS & TECHNOLOGIES</span>
+            <motion.span
+              className="absolute inset-0 text-white opacity-30"
+              animate={{
+                x: [0, -2, 2, 0],
+                opacity: [0, 0.3, 0, 0],
+              }}
+              transition={{
+                duration: 0.15,
+                repeat: Infinity,
+                repeatDelay: 6,
+                delay: 1,
+              }}
+            >
+              &gt; TOOLS & TECHNOLOGIES
+            </motion.span>
+            
+            <motion.div
+              className="absolute -bottom-2 left-0 h-0.5 bg-white"
+              initial={{ width: 0 }}
+              animate={{ width: '120px' }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            />
+          </motion.h4>
 
           <div className="flex flex-wrap gap-3">
-            {[
-              'Splunk', 'Wazuh', 'Shuffle SOAR', 'TheHive', 'VirusTotal API',
-              'Kali Linux', 'SPL (Search)', 'Docker', 'Linux', 'Git',
-              'REST APIs', 'Threat Intelligence'
-            ].map((tech) => (
-              <span
+            {tools.map((tech, index) => (
+              <motion.span
                 key={tech}
-                className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-sm shadow-sm shadow-black/20 hover:bg-white/10 hover:border-white/20 transition-all duration-200 backdrop-blur-sm"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.5 + 0.03 * index }}
+                whileHover={{ scale: 1.05, y: -2 }}
+                className="px-4 py-2 rounded-md bg-white/5 border border-white/20 text-white text-sm hover:bg-white/10 hover:border-white/40 transition-all backdrop-blur-sm relative overflow-hidden group"
               >
-                {tech}
-              </span>
+                <motion.div
+                  className="absolute inset-0 bg-white"
+                  initial={{ x: '-100%' }}
+                  whileHover={{
+                    x: '100%',
+                    opacity: [0, 0.05, 0.05, 0],
+                    transition: { duration: 0.4 }
+                  }}
+                />
+                <span className="relative z-10">{tech}</span>
+              </motion.span>
             ))}
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </div>
