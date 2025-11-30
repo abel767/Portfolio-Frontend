@@ -154,13 +154,18 @@ export function AboutWindow() {
                 }}
               />
               
-              <p className="relative z-10">
-                <span className="text-white font-semibold">Cybersecurity Professional</span> with{' '}
-                <span className="text-white">CSA/CICSA certification</span>. Specialized in{' '}
-                <span className="text-white">SOC operations, SIEM pipelines, and incident response automation</span>. 
-                Built hands-on projects with Wazuh, Splunk, Snort IDS, and SOAR platforms. 
-                Strong coding foundation in <span className="text-white">MERN stack</span> for application security insights.
-              </p>
+<p className="relative z-10">
+  I'm a <span className="text-white font-semibold">Cybersecurity Learner </span> 
+  building strong fundamentals in 
+  <span className="text-white"> SOC operations, threat detection, incident analysis </span> 
+  and defensive security practices.
+  I’ve completed <span className="text-white">CICSA training</span> where I gained 
+  hands-on experience with a wide range of cybersecurity concepts, labs, 
+  monitoring workflows, and real-world attack–defense scenarios.
+  My background in the <span className="text-white">MERN stack</span> also helps me 
+  understand applications deeply, strengthening my approach to security.
+</p>
+
             </motion.div>
 
             {/* Career focus */}
@@ -179,12 +184,13 @@ export function AboutWindow() {
                 }}
               />
               
-              <p className="relative z-10">
-                Seeking{' '}
-                <span className="text-white">SOC Analyst or Security Engineer roles</span>{' '}
-                to build resilient security infrastructures, automate threat detection, 
-                and contribute to real-time defense operations.
-              </p>
+<p className="relative z-10">
+  I'm currently sharpening my skills in 
+  <span className="text-white"> cybersecurity and SOC methodologies</span>, 
+  consistently learning new tools, techniques, and practical defensive strategies 
+  as I grow in the field.
+</p>
+
             </motion.div>
           </div>
 
@@ -265,7 +271,7 @@ export function AboutWindow() {
               <div className="text-xs text-gray-500">CERTIFIED</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-white mb-1">10+</div>
+              <div className="text-2xl font-bold text-white mb-1">3+</div>
               <div className="text-xs text-gray-500">LABS & PROJECTS</div>
             </div>
             <div className="text-center">
