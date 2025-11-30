@@ -44,31 +44,85 @@ export function Desktop({ onIconClick, openWindows }) {
         </svg>
       </div>
 
-      {/* Subtle grid lines */}
+      {/* INTENSE glitch blocks - MOBILE STYLE */}
+      {[...Array(25)].map((_, i) => {
+        const colors = ['#ff0000', '#00ff00', '#0000ff', '#00ffff', '#ff00ff', '#ffffff'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        return (
+          <motion.div
+            key={i}
+            className="absolute"
+            style={{
+              backgroundColor: randomColor,
+              width: Math.random() * 300 + 100,
+              height: Math.random() * 5 + 2,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              opacity: [0, 0, 0.35, 0.25, 0],
+              x: [0, Math.random() * 40 - 20, 0],
+              scaleX: [1, 0.6, 1.4, 1],
+            }}
+            transition={{
+              duration: 0.2,
+              repeat: Infinity,
+              repeatDelay: Math.random() * 2 + 0.5,
+              delay: Math.random() * 2,
+            }}
+          />
+        );
+      })}
+
+      {/* Vertical glitch lines - INTENSE */}
+      {[...Array(12)].map((_, i) => {
+        const colors = ['#ff0000', '#00ff00', '#0000ff', '#00ffff', '#ff00ff'];
+        const randomColor = colors[i % colors.length];
+        return (
+          <motion.div
+            key={`v-${i}`}
+            className="absolute w-0.5 h-full"
+            style={{
+              backgroundColor: randomColor,
+              left: `${(i + 1) * 8}%`,
+            }}
+            animate={{
+              opacity: [0, 0, 0.2, 0.15, 0],
+              scaleY: [1, 0.4, 1.2, 1],
+            }}
+            transition={{
+              duration: 0.15,
+              repeat: Infinity,
+              repeatDelay: Math.random() * 2 + 1,
+              delay: Math.random() * 1,
+            }}
+          />
+        );
+      })}
+
+      {/* RGB split overlay - STRONGER */}
       <motion.div
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px',
-        }}
+        className="absolute inset-0 pointer-events-none"
         animate={{
-          backgroundPosition: ['0px 0px', '50px 50px'],
+          background: [
+            "linear-gradient(90deg, transparent 0%, transparent 100%)",
+            "linear-gradient(90deg, rgba(255,0,0,0.15) 0%, transparent 50%, rgba(0,255,0,0.15) 100%)",
+            "linear-gradient(90deg, transparent 0%, rgba(0,0,255,0.12) 50%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, transparent 100%)",
+          ],
         }}
         transition={{
-          duration: 20,
+          duration: 0.1,
           repeat: Infinity,
-          ease: 'linear'
+          repeatDelay: 3,
         }}
       />
 
-      {/* Scanline effect */}
+      {/* Scanline effect - MORE VISIBLE */}
       <motion.div
-        className="absolute inset-0 opacity-10 pointer-events-none"
+        className="absolute inset-0 opacity-15 pointer-events-none"
         style={{
-          background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.05) 2px, rgba(255, 255, 255, 0.05) 4px)',
+          background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.1) 4px)',
         }}
         animate={{
           y: [0, 100],
@@ -88,54 +142,38 @@ export function Desktop({ onIconClick, openWindows }) {
         }}
       />
 
-      {/* Random glitch lines */}
-      {[...Array(6)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-full h-px bg-white"
-          style={{
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            opacity: [0, 0, 0.3, 0, 0],
-            scaleX: [1, 0.8, 1.2, 1],
-          }}
-          transition={{
-            duration: 0.15,
-            repeat: Infinity,
-            repeatDelay: Math.random() * 8 + 5,
-            delay: Math.random() * 3,
-          }}
-        />
-      ))}
-
-      {/* Floating particles */}
+      {/* Floating particles - MORE VISIBLE */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(12)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-white"
-            style={{
-              width: Math.random() * 2 + 1 + 'px',
-              height: Math.random() * 2 + 1 + 'px',
-              left: Math.random() * 100 + '%',
-              top: Math.random() * 100 + '%',
-              boxShadow: '0 0 10px rgba(255, 255, 255, 0.5)',
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, Math.random() * 20 - 10, 0],
-              opacity: [0.2, 0.6, 0.2],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: Math.random() * 8 + 8,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: 'easeInOut'
-            }}
-          />
-        ))}
+        {[...Array(20)].map((_, i) => {
+          const colors = ['#ff0000', '#00ff00', '#0000ff', '#00ffff', '#ff00ff', '#ffffff'];
+          const randomColor = colors[Math.floor(Math.random() * colors.length)];
+          return (
+            <motion.div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                backgroundColor: randomColor,
+                width: Math.random() * 3 + 1 + 'px',
+                height: Math.random() * 3 + 1 + 'px',
+                left: Math.random() * 100 + '%',
+                top: Math.random() * 100 + '%',
+                boxShadow: `0 0 10px ${randomColor}`,
+              }}
+              animate={{
+                y: [0, -50, 0],
+                x: [0, Math.random() * 30 - 15, 0],
+                opacity: [0.3, 0.8, 0.3],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: Math.random() * 6 + 4,
+                repeat: Infinity,
+                delay: Math.random() * 3,
+                ease: 'easeInOut'
+              }}
+            />
+          );
+        })}
       </div>
 
       {/* Desktop Icons */}
@@ -161,45 +199,60 @@ export function Desktop({ onIconClick, openWindows }) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {/* Hover glitch effect */}
+              {/* Hover glitch effect - MORE INTENSE */}
               <motion.div
                 className="absolute inset-0 border border-white/0 rounded-xl"
                 whileHover={{
-                  borderColor: 'rgba(255, 255, 255, 0.3)',
+                  borderColor: 'rgba(255, 255, 255, 0.4)',
                 }}
                 animate={{
-                  opacity: [0, 0, 0.5, 0, 0],
-                  x: [0, -2, 2, 0],
+                  opacity: [0, 0, 0.6, 0, 0],
+                  x: [0, -3, 3, 0],
                 }}
                 transition={{
-                  opacity: { duration: 0.1, repeat: Infinity, repeatDelay: 6 },
-                  x: { duration: 0.1, repeat: Infinity, repeatDelay: 6 }
+                  duration: 0.1,
+                  repeat: Infinity,
+                  repeatDelay: 4,
                 }}
               />
 
               {/* Icon Box */}
               <div
                 className="
-                  w-16 h-16 rounded-xl backdrop-blur-sm border 
+                  w-16 h-16 rounded-xl backdrop-blur-sm border-2
                   flex items-center justify-center transition-all duration-300
-                  bg-white/5 border-white/20
-                  group-hover:bg-white/10 group-hover:border-white/40
+                  bg-white/5 border-white/30
+                  group-hover:bg-white/15 group-hover:border-white/50
                   relative overflow-hidden
                 "
               >
-                {/* Glitch sweep on hover */}
+                {/* RGB glitch layers on hover */}
                 <motion.div
-                  className="absolute inset-0 bg-white"
-                  initial={{ x: '-100%' }}
+                  className="absolute inset-0 bg-red-500"
+                  initial={{ opacity: 0 }}
                   whileHover={{
-                    x: ['100%', '100%'],
-                    opacity: [0, 0.1, 0.1, 0],
+                    opacity: [0, 0.2, 0, 0],
+                    x: [0, -3, 3, 0],
                   }}
                   transition={{
-                    duration: 0.6,
-                    ease: 'easeInOut'
+                    duration: 0.15,
+                    repeat: 2,
                   }}
                 />
+                <motion.div
+                  className="absolute inset-0 bg-cyan-500"
+                  initial={{ opacity: 0 }}
+                  whileHover={{
+                    opacity: [0, 0, 0.2, 0, 0],
+                    x: [0, 3, -3, 0],
+                  }}
+                  transition={{
+                    duration: 0.15,
+                    repeat: 2,
+                    delay: 0.05,
+                  }}
+                />
+                
                 <Icon className="w-8 h-8 text-white/70 group-hover:text-white transition-colors relative z-10" />
               </div>
 
@@ -212,25 +265,48 @@ export function Desktop({ onIconClick, openWindows }) {
         })}
       </div>
 
-      {/* Corner status indicators */}
+      {/* Corner status indicators - WITH GLITCH */}
       <motion.div
         className="absolute top-8 right-8 text-white/40 text-xs font-mono"
-        animate={{ opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        animate={{
+          opacity: [0.4, 0.7, 0.4],
+          color: ['rgba(255,255,255,0.4)', 'rgba(255,255,255,0.7)', 'rgba(0,255,255,0.6)', 'rgba(255,255,255,0.4)'],
+        }}
+        transition={{
+          duration: 0.2,
+          repeat: Infinity,
+          repeatDelay: 2,
+        }}
       >
         STATUS: ACTIVE ◣
       </motion.div>
+      
       <motion.div
         className="absolute bottom-8 left-8 text-white/40 text-xs font-mono"
-        animate={{ opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 1.8, repeat: Infinity }}
+        animate={{
+          opacity: [0.5, 0.8, 0.5],
+          color: ['rgba(255,255,255,0.5)', 'rgba(255,255,255,0.8)', 'rgba(255,0,0,0.6)', 'rgba(255,255,255,0.5)'],
+        }}
+        transition={{
+          duration: 0.2,
+          repeat: Infinity,
+          repeatDelay: 2.5,
+        }}
       >
         ◥ SECURE_MODE
       </motion.div>
+      
       <motion.div
         className="absolute bottom-8 right-8 text-white/40 text-xs font-mono"
-        animate={{ opacity: [0.6, 1, 0.6] }}
-        transition={{ duration: 2.2, repeat: Infinity }}
+        animate={{
+          opacity: [0.6, 1, 0.6],
+          color: ['rgba(255,255,255,0.6)', 'rgba(255,255,255,1)', 'rgba(0,255,0,0.6)', 'rgba(255,255,255,0.6)'],
+        }}
+        transition={{
+          duration: 0.2,
+          repeat: Infinity,
+          repeatDelay: 2.2,
+        }}
       >
         v2.0 ◤
       </motion.div>
