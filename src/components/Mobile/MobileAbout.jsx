@@ -292,6 +292,36 @@ export function MobileAbout() {
           automation, and security projects, eager to learn and contribute.
         </motion.p>
 
+        {/* Medium Link */}
+<motion.a
+  href="https://medium.com/@YOUR_MEDIUM_USERNAME"
+  target="_blank"
+  rel="noopener noreferrer"
+  initial={{ opacity: 0, y: 20 }}
+  animate={isInView ? { opacity: 1, y: 0 } : {}}
+  transition={{ duration: 0.6, delay: 0.45 }}
+  className="block w-max mx-auto mb-12 px-6 py-2 border border-[#00ffff]/40 text-[#00ffff] font-mono text-sm 
+             hover:border-[#00ffff] hover:text-black hover:bg-[#00ffff] transition-all relative overflow-hidden"
+>
+  <span className="relative z-10">Read My Medium Articles</span>
+
+  {/* Glitch layer */}
+  <motion.span
+    className="absolute inset-0 bg-[#00ffff]"
+    style={{ opacity: 0 }}
+    animate={{
+      opacity: [0, 0, 0.4, 0, 0],
+      x: [0, -3, 3, 0],
+    }}
+    transition={{
+      duration: 0.12,
+      repeat: Infinity,
+      repeatDelay: 8,
+    }}
+  />
+</motion.a>
+
+
         {/* Stats Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -301,7 +331,7 @@ export function MobileAbout() {
         >
           {[
             { value: "0+", label: "Years" },
-            { value: "10+", label: "Labs & Projects" },
+            { value: "3+", label: "Labs & Projects" },
             { value: "100%", label: "Committed" }
           ].map((stat, idx) => (
             <motion.div
