@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import './App.css';
 
 // Welcome Screens
@@ -27,6 +27,8 @@ export default function App() {
   const [openWindows, setOpenWindows] = useState([]);
   const [maxZIndex, setMaxZIndex] = useState(10);
   const [showWelcome, setShowWelcome] = useState(true);
+
+  
 
   // -------------------------
   // WINDOW MANAGEMENT
@@ -76,7 +78,19 @@ export default function App() {
   // -------------------------
   // MOBILE CHECK
   // -------------------------
-  const isMobile = window.innerWidth < 768;
+  // const isMobile = window.innerWidth < 768;
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
 
   // -------------------------
   // SHOW WELCOME SCREEN FIRST
