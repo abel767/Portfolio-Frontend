@@ -15,13 +15,13 @@ export function FileManagerWindow() {
       downloadUrl: '/AbelThomas.pdf',
       icon: FileText
     },
-    {
-      name: 'Certificates',
-      type: 'Folder',
-      size: '8 items',
-      modified: '2025-01-10',
-      icon: Folder
-    },
+    // {
+    //   name: 'Certificates',
+    //   type: 'Folder',
+    //   size: '8 items',
+    //   modified: '2025-01-10',
+    //   icon: Folder
+    // },
     {
       name: 'Projects',
       type: 'Folder',
