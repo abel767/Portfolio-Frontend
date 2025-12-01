@@ -12,16 +12,16 @@ export function Dock({ onIconClick, openWindows }) {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center pb-4">
+    <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pb-2 lg:pb-4">
       <motion.div
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut', delay: 0.5 }}
         className="relative"
       >
-        {/* Dock container with glitch effect */}
+        {/* Dock container with glitch effect - responsive sizing */}
         <motion.div
-          className="bg-black/80 backdrop-blur-xl border-2 border-white/20 rounded-2xl px-6 py-3 shadow-2xl relative overflow-hidden"
+          className="bg-black/80 backdrop-blur-xl border-2 border-white/20 rounded-xl lg:rounded-2xl px-3 lg:px-6 py-2 lg:py-3 shadow-2xl relative overflow-hidden"
           animate={{
             boxShadow: [
               '0 0 20px rgba(255, 255, 255, 0.1)',
@@ -48,7 +48,7 @@ export function Dock({ onIconClick, openWindows }) {
             }}
           />
 
-          <div className="flex items-center gap-3 relative z-10">
+          <div className="flex items-center gap-2 lg:gap-3 relative z-10">
             {dockItems.map((item, index) => {
               const Icon = item.icon;
               const isOpen = openWindows.includes(item.id);
@@ -68,7 +68,7 @@ export function Dock({ onIconClick, openWindows }) {
                   onClick={() => onIconClick(item.id)}
                   className="group relative"
                   aria-label={item.label}
-                  whileHover={{ scale: 1.1, y: -8 }}
+                  whileHover={{ scale: 1.1, y: -6 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {/* Glitch effect on hover */}
@@ -88,10 +88,10 @@ export function Dock({ onIconClick, openWindows }) {
                     }}
                   />
 
-                  {/* Icon container */}
+                  {/* Icon container - responsive sizing */}
                   <motion.div
                     className={`
-                      w-14 h-14 rounded-xl flex items-center justify-center
+                      w-11 h-11 lg:w-14 lg:h-14 rounded-lg lg:rounded-xl flex items-center justify-center
                       transition-all duration-300 ease-out relative overflow-hidden
                       ${
                         isOpen
@@ -129,7 +129,7 @@ export function Dock({ onIconClick, openWindows }) {
                     />
 
                     <Icon
-                      className={`w-7 h-7 transition-colors relative z-10 ${
+                      className={`w-5 h-5 lg:w-7 lg:h-7 transition-colors relative z-10 ${
                         isOpen
                           ? 'text-white'
                           : 'text-white/60 group-hover:text-white'
@@ -142,9 +142,9 @@ export function Dock({ onIconClick, openWindows }) {
                     initial={{ opacity: 0, y: 10 }}
                     whileHover={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute -top-14 left-1/2 -translate-x-1/2 pointer-events-none"
+                    className="absolute -top-12 lg:-top-14 left-1/2 -translate-x-1/2 pointer-events-none"
                   >
-                    <div className="bg-black/90 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/30 shadow-xl">
+                    <div className="bg-black/90 backdrop-blur-sm px-3 lg:px-4 py-1.5 lg:py-2 rounded-lg border border-white/30 shadow-xl">
                       <span className="text-white text-xs whitespace-nowrap font-mono">
                         {item.label}
                       </span>
@@ -152,12 +152,12 @@ export function Dock({ onIconClick, openWindows }) {
                     <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-black/90 border-r border-b border-white/30 rotate-45"></div>
                   </motion.div>
 
-                  {/* Active indicator */}
+                  {/* Active indicator - responsive sizing */}
                   {isOpen && (
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-lg"
+                      className="absolute -bottom-1.5 lg:-bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 lg:w-1.5 lg:h-1.5 rounded-full bg-white shadow-lg"
                       style={{
                         boxShadow: '0 0 8px rgba(255, 255, 255, 0.8)',
                       }}

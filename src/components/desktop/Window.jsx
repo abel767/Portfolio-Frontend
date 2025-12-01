@@ -25,11 +25,36 @@ export function Window({
   const windowRef = useRef(null);
 
   useEffect(() => {
-    // Center the window on open
-    const centerX = (window.innerWidth - size.width) / 2;
-    const centerY = (window.innerHeight - size.height) / 2;
+    // Responsive default size based on screen width
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    
+    let windowWidth = defaultSize.width;
+    let windowHeight = defaultSize.height;
+    
+    // For laptops with width 1024-1440px, reduce window size by 20%
+    if (screenWidth >= 1024 && screenWidth <= 1440) {
+      windowWidth = Math.min(defaultSize.width * 0.8, screenWidth - 100);
+      windowHeight = Math.min(defaultSize.height * 0.8, screenHeight - 200);
+    }
+    // For smaller laptops < 1024px, reduce by 30%
+    else if (screenWidth < 1024) {
+      windowWidth = Math.min(defaultSize.width * 0.7, screenWidth - 80);
+      windowHeight = Math.min(defaultSize.height * 0.7, screenHeight - 180);
+    }
+    // For large screens, keep default but ensure it fits
+    else {
+      windowWidth = Math.min(defaultSize.width, screenWidth - 100);
+      windowHeight = Math.min(defaultSize.height, screenHeight - 200);
+    }
 
-    setPosition({ x: centerX, y: centerY });
+    setSize({ width: windowWidth, height: windowHeight });
+
+    // Center the window on open
+    const centerX = (screenWidth - windowWidth) / 2;
+    const centerY = (screenHeight - windowHeight - 100) / 2; // Leave space for dock
+
+    setPosition({ x: Math.max(0, centerX), y: Math.max(40, centerY) });
   }, []);
 
   // Opening animation
@@ -69,7 +94,11 @@ export function Window({
     } else {
       setPreMaximizeState({ position, size });
       setPosition({ x: 0, y: 40 });
-      setSize({ width: window.innerWidth, height: window.innerHeight - 40 });
+      // Leave space for dock at bottom (120px for smaller screens)
+      setSize({ 
+        width: window.innerWidth, 
+        height: window.innerWidth < 1440 ? window.innerHeight - 140 : window.innerHeight - 40 
+      });
       setIsMaximized(true);
     }
   };
@@ -77,9 +106,16 @@ export function Window({
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (isDragging && !isMaximized) {
+        const newX = e.clientX - dragOffset.x;
+        const newY = e.clientY - dragOffset.y;
+        
+        // Keep window within bounds, accounting for dock
+        const maxX = window.innerWidth - size.width;
+        const maxY = window.innerHeight - size.height - 100;
+        
         setPosition({
-          x: e.clientX - dragOffset.x,
-          y: e.clientY - dragOffset.y,
+          x: Math.max(0, Math.min(newX, maxX)),
+          y: Math.max(40, Math.min(newY, maxY)),
         });
       }
 
@@ -88,20 +124,24 @@ export function Window({
         const newSize = { ...size };
         const newPos = { ...position };
 
+        // Responsive minimum sizes
+        const minWidth = window.innerWidth < 1024 ? 300 : 400;
+        const minHeight = window.innerWidth < 1024 ? 250 : 300;
+
         if (resizeDirection.includes('e')) {
-          newSize.width = Math.max(400, e.clientX - rect.left);
+          newSize.width = Math.max(minWidth, e.clientX - rect.left);
         }
         if (resizeDirection.includes('s')) {
-          newSize.height = Math.max(300, e.clientY - rect.top);
+          newSize.height = Math.max(minHeight, e.clientY - rect.top);
         }
         if (resizeDirection.includes('w')) {
           const deltaX = e.clientX - rect.left;
-          newSize.width = Math.max(400, rect.width - deltaX);
+          newSize.width = Math.max(minWidth, rect.width - deltaX);
           newPos.x = e.clientX;
         }
         if (resizeDirection.includes('n')) {
           const deltaY = e.clientY - rect.top;
-          newSize.height = Math.max(300, rect.height - deltaY);
+          newSize.height = Math.max(minHeight, rect.height - deltaY);
           newPos.y = e.clientY;
         }
 
@@ -178,9 +218,9 @@ export function Window({
           }}
         />
 
-        {/* Window title bar */}
+        {/* Window title bar - responsive height */}
         <motion.div
-          className="h-12 bg-black/60 border-b-2 border-white/20 flex items-center justify-between px-4 cursor-move select-none flex-shrink-0 relative overflow-hidden"
+          className="h-10 lg:h-12 bg-black/60 border-b-2 border-white/20 flex items-center justify-between px-3 lg:px-4 cursor-move select-none flex-shrink-0 relative overflow-hidden"
           onMouseDown={handleMouseDown}
         >
           {/* Glitch effect on drag */}
@@ -201,7 +241,7 @@ export function Window({
           />
 
           {/* Window controls - Linux style on right */}
-          <div className="flex-1 text-center text-white text-sm font-mono relative">
+          <div className="flex-1 text-center text-white text-xs lg:text-sm font-mono relative">
             <span className="relative z-10">{title}</span>
             <motion.span
               className="absolute inset-0 text-white opacity-50"
@@ -219,11 +259,11 @@ export function Window({
             </motion.span>
           </div>
           
-          {/* Control buttons on right */}
-          <div className="flex gap-2 window-controls relative z-10">
+          {/* Control buttons on right - responsive sizing */}
+          <div className="flex gap-1.5 lg:gap-2 window-controls relative z-10">
             <motion.button
               onClick={onMinimize}
-              className="w-3.5 h-3.5 rounded-full bg-yellow-500 border border-yellow-600 hover:bg-yellow-400 transition-all"
+              className="w-3 h-3 lg:w-3.5 lg:h-3.5 rounded-full bg-yellow-500 border border-yellow-600 hover:bg-yellow-400 transition-all"
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
               aria-label="Minimize"
@@ -232,7 +272,7 @@ export function Window({
             </motion.button>
             <motion.button
               onClick={handleMaximize}
-              className="w-3.5 h-3.5 rounded-full bg-green-500 border border-green-600 hover:bg-green-400 transition-all"
+              className="w-3 h-3 lg:w-3.5 lg:h-3.5 rounded-full bg-green-500 border border-green-600 hover:bg-green-400 transition-all"
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
               aria-label="Maximize"
@@ -241,7 +281,7 @@ export function Window({
             </motion.button>
             <motion.button
               onClick={onClose}
-              className="w-3.5 h-3.5 rounded-full bg-red-500 border border-red-600 hover:bg-red-400 transition-all"
+              className="w-3 h-3 lg:w-3.5 lg:h-3.5 rounded-full bg-red-500 border border-red-600 hover:bg-red-400 transition-all"
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
               aria-label="Close"
@@ -264,33 +304,33 @@ export function Window({
         </div>
       </motion.div>
 
-      {/* Resize handles - enhanced visibility */}
+      {/* Resize handles - enhanced visibility, responsive sizing */}
       {!isMaximized && (
         <>
           {/* Corners */}
           <motion.div
-            className="resize-handle absolute top-0 left-0 w-4 h-4 cursor-nw-resize"
+            className="resize-handle absolute top-0 left-0 w-3 h-3 lg:w-4 lg:h-4 cursor-nw-resize"
             onMouseDown={(e) => handleResizeStart(e, 'nw')}
             whileHover={{ scale: 1.2 }}
           >
             <div className="w-2 h-2 bg-white/20 rounded-tl-lg border-l-2 border-t-2 border-white/40" />
           </motion.div>
           <motion.div
-            className="resize-handle absolute top-0 right-0 w-4 h-4 cursor-ne-resize"
+            className="resize-handle absolute top-0 right-0 w-3 h-3 lg:w-4 lg:h-4 cursor-ne-resize"
             onMouseDown={(e) => handleResizeStart(e, 'ne')}
             whileHover={{ scale: 1.2 }}
           >
             <div className="w-2 h-2 bg-white/20 rounded-tr-lg border-r-2 border-t-2 border-white/40 ml-auto" />
           </motion.div>
           <motion.div
-            className="resize-handle absolute bottom-0 left-0 w-4 h-4 cursor-sw-resize"
+            className="resize-handle absolute bottom-0 left-0 w-3 h-3 lg:w-4 lg:h-4 cursor-sw-resize"
             onMouseDown={(e) => handleResizeStart(e, 'sw')}
             whileHover={{ scale: 1.2 }}
           >
             <div className="w-2 h-2 bg-white/20 rounded-bl-lg border-l-2 border-b-2 border-white/40 mt-auto" />
           </motion.div>
           <motion.div
-            className="resize-handle absolute bottom-0 right-0 w-4 h-4 cursor-se-resize"
+            className="resize-handle absolute bottom-0 right-0 w-3 h-3 lg:w-4 lg:h-4 cursor-se-resize"
             onMouseDown={(e) => handleResizeStart(e, 'se')}
             whileHover={{ scale: 1.2 }}
           >
