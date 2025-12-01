@@ -32,19 +32,19 @@ export function Window({
     let windowWidth = defaultSize.width;
     let windowHeight = defaultSize.height;
     
-    // For laptops with width 1024-1440px, reduce window size by 20%
+     // Keep width consistent across all screen sizes
+    windowWidth = Math.min(defaultSize.width, screenWidth - 100);
+    
+    // Adjust height based on screen size
     if (screenWidth >= 1024 && screenWidth <= 1440) {
-      windowWidth = Math.min(defaultSize.width * 0.8, screenWidth - 100);
       windowHeight = Math.min(defaultSize.height * 0.8, screenHeight - 200);
     }
     // For smaller laptops < 1024px, reduce height by 30% 
     else if (screenWidth < 1024) {
-      windowWidth = Math.min(defaultSize.width, screenWidth - 100);
       windowHeight = Math.min(defaultSize.height * 0.7, screenHeight - 180);
     }
-    // For large screens, keep default but ensure it fits
+    // For large screens, keep default height
     else {
-      windowWidth = Math.min(defaultSize.width, screenWidth - 100);
       windowHeight = Math.min(defaultSize.height, screenHeight - 200);
     }
 
