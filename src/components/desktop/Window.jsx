@@ -37,9 +37,9 @@ export function Window({
       windowWidth = Math.min(defaultSize.width * 0.8, screenWidth - 100);
       windowHeight = Math.min(defaultSize.height * 0.8, screenHeight - 200);
     }
-    // For smaller laptops < 1024px, reduce by 30%
+    // For smaller laptops < 1024px, reduce height by 30% 
     else if (screenWidth < 1024) {
-      windowWidth = Math.min(defaultSize.width * 0.7, screenWidth - 150);
+      windowWidth = Math.min(defaultSize.width, screenWidth - 100);
       windowHeight = Math.min(defaultSize.height * 0.7, screenHeight - 180);
     }
     // For large screens, keep default but ensure it fits
