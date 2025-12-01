@@ -30,7 +30,7 @@ export function ProjectsWindow() {
   ];
 
   return (
-    <div className="p-10 max-h-[600px] overflow-y-auto font-mono relative">
+    <div className="p-10 font-mono relative">
       {/* Subtle scanlines */}
       <div
         className="absolute inset-0 pointer-events-none opacity-5"
