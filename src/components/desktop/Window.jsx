@@ -25,9 +25,9 @@ export function Window({
   const windowRef = useRef(null);
 
   useEffect(() => {
-    // Center the window on open with dock clearance
+    // Center the window on open
     const centerX = (window.innerWidth - size.width) / 2;
-    const centerY = (window.innerHeight - size.height - 100) / 2; // Added 100px for dock clearance
+    const centerY = (window.innerHeight - size.height) / 2;
 
     setPosition({ x: centerX, y: centerY });
   }, []);
