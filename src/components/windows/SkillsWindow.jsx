@@ -44,7 +44,7 @@ export default function SkillsWindow() {
     },
     {
       category: 'Scripting & Automation',
-      tools: ['Bash', 'Python']
+      tools: ['Bash']
     }
   ];
 
