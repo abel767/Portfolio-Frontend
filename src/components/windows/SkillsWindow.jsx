@@ -40,7 +40,7 @@ export default function SkillsWindow() {
     },
     {
       category: 'Platforms & Virtualization',
-      tools: ['Kali Linux', 'Ubuntu', 'Windows 10/11', 'VirtualBox', 'VMware']
+      tools: ['Kali Linux', 'Ubuntu', 'Windows', 'VirtualBox', 'VMware']
     },
     {
       category: 'Scripting & Automation',
