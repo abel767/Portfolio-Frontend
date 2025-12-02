@@ -1,28 +1,51 @@
 import { motion } from 'motion/react';
 import { Database, Server, Code2, Shield, Lock, FileSearch, Globe, Zap } from 'lucide-react';
 
-export function SkillsWindow() {
+export default function SkillsWindow() {
 
   const cyberSkills = [
-    { name: 'SOC Monitoring', icon: Shield },
-    { name: 'Splunk & Snort Integration', icon: FileSearch },
-    { name: 'Incident Triage & Log Analysis', icon: Code2 },
-    { name: 'Wireshark / Network Analysis', icon: Globe },
-    { name: 'Ethical Penetration Testing', icon: Lock },
-    { name: 'Automation & SOAR Tools', icon: Zap },
+    { name: 'Security Operations & Incident Response', icon: Shield },
+    { name: 'SIEM & Log Monitoring (Splunk, Wazuh)', icon: FileSearch },
+    { name: 'Threat Intelligence & Hunting', icon: Lock },
+    { name: 'Network & Endpoint Monitoring', icon: Globe },
+    // { name: 'Application Security & Web Testing', icon: Code2 },
+    { name: 'SOAR Automation (Shuffle, TheHive)', icon: Zap },
   ];
 
   const mernSkills = [
     { name: 'JavaScript', icon: Code2 },
-    { name: 'React', icon: Code2 },
-    { name: 'Node.js', icon: Zap },
+    { name: 'React.js', icon: Code2 },
+    { name: 'Node.js', icon: Server },
     { name: 'MongoDB', icon: Database },
-    { name: 'Express.js', icon: Server },
+    { name: 'Express.js', icon: Zap },
+    { name: 'MySQL', icon: Database },
   ];
 
-  const tools = [
-    'Kali Linux', 'Metasploit', 'MSFvenom', 'Burp Suite', 'BeeF',
-    'Docker', 'Linux', 'Git', 'REST APIs', 'Shuffle SOAR', 'TheHive', 'VirusTotal API'
+  const toolCategories = [
+    {
+      category: 'SIEM & SOAR',
+      tools: ['Splunk', 'Wazuh', 'Shuffle SOAR', 'TheHive']
+    },
+    {
+      category: 'Network Analysis',
+      tools: ['Wireshark', 'Nmap']
+    },
+    {
+      category: 'Security Testing',
+      tools: ['Burp Suite', 'Hydra']
+    },
+    {
+      category: 'Threat Intelligence',
+      tools: ['VirusTotal', 'AbuseIPDB']
+    },
+    {
+      category: 'Platforms & Virtualization',
+      tools: ['Kali Linux', 'Ubuntu', 'Windows 10/11', 'VirtualBox', 'VMware']
+    },
+    {
+      category: 'Scripting & Automation',
+      tools: ['Bash', 'Python']
+    }
   ];
 
   return (
@@ -83,7 +106,7 @@ export function SkillsWindow() {
             />
           </motion.h3>
 
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 gap-5">
             {cyberSkills.map((skill, index) => {
               const Icon = skill.icon;
               return (
@@ -155,7 +178,7 @@ export function SkillsWindow() {
               delay: 0.5,
             }}
           >
-            <span className="relative z-10">&gt; MERN STACK</span>
+            <span className="relative z-10">&gt; DEVELOPMENT</span>
             <motion.span
               className="absolute inset-0 text-white opacity-30"
               animate={{
@@ -169,7 +192,7 @@ export function SkillsWindow() {
                 delay: 0.5,
               }}
             >
-              &gt; MERN STACK
+              &gt; DEVELOPMENT
             </motion.span>
             
             <motion.div
@@ -275,27 +298,41 @@ export function SkillsWindow() {
             />
           </motion.h4>
 
-          <div className="flex flex-wrap gap-3">
-            {tools.map((tech, index) => (
-              <motion.span
-                key={tech}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: 0.5 + 0.03 * index }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="px-4 py-2 rounded-md bg-white/5 border border-white/20 text-white text-sm hover:bg-white/10 hover:border-white/40 transition-all backdrop-blur-sm relative overflow-hidden group"
+          <div className="space-y-6">
+            {toolCategories.map((category, catIndex) => (
+              <motion.div
+                key={category.category}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.5 + 0.1 * catIndex }}
               >
-                <motion.div
-                  className="absolute inset-0 bg-white"
-                  initial={{ x: '-100%' }}
-                  whileHover={{
-                    x: '100%',
-                    opacity: [0, 0.05, 0.05, 0],
-                    transition: { duration: 0.4 }
-                  }}
-                />
-                <span className="relative z-10">{tech}</span>
-              </motion.span>
+                <h5 className="text-sm font-semibold text-white/70 mb-3 tracking-wide">
+                  {category.category}
+                </h5>
+                <div className="flex flex-wrap gap-3">
+                  {category.tools.map((tech, index) => (
+                    <motion.span
+                      key={tech}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: 0.6 + catIndex * 0.1 + 0.03 * index }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      className="px-4 py-2 rounded-md bg-white/5 border border-white/20 text-white text-sm hover:bg-white/10 hover:border-white/40 transition-all backdrop-blur-sm relative overflow-hidden group"
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-white"
+                        initial={{ x: '-100%' }}
+                        whileHover={{
+                          x: '100%',
+                          opacity: [0, 0.05, 0.05, 0],
+                          transition: { duration: 0.4 }
+                        }}
+                      />
+                      <span className="relative z-10">{tech}</span>
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
