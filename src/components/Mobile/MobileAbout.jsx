@@ -294,7 +294,7 @@ export function MobileAbout() {
 
         {/* Medium Link */}
 <motion.a
-  href="https://medium.com/@YOUR_MEDIUM_USERNAME"
+  href="https://medium.com/@abelthomas946"
   target="_blank"
   rel="noopener noreferrer"
   initial={{ opacity: 0, y: 20 }}
