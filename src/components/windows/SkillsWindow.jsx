@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Database, Server, Code2, Shield, Lock, FileSearch, Globe, Zap } from 'lucide-react';
 
-export default function SkillsWindow() {
+export  function SkillsWindow() {
 
   const cyberSkills = [
     { name: 'Security Operations & Incident Response', icon: Shield },
