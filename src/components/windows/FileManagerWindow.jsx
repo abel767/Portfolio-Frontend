@@ -16,11 +16,11 @@ export function FileManagerWindow() {
       icon: FileText
     },
     {
-      name: 'Certificate.pdf',
+      name: 'Ethical Hacking Certificate - Udemy.pdf',
       type: 'PDF Document',
       size: '156 KB',
       modified: '2025-01-10',
-      downloadUrl: '/Udemy Ethical Hacking.pdf',
+      downloadUrl: '/Udemy-Ethical-Hacking.pdf',
       icon: FileText
     },
     {
