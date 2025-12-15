@@ -15,13 +15,14 @@ export function FileManagerWindow() {
       downloadUrl: '/AbelThomas.pdf',
       icon: FileText
     },
-    // {
-    //   name: 'Certificates',
-    //   type: 'Folder',
-    //   size: '8 items',
-    //   modified: '2025-01-10',
-    //   icon: Folder
-    // },
+    {
+      name: 'Certificate.pdf',
+      type: 'PDF Document',
+      size: '156 KB',
+      modified: '2025-01-10',
+      downloadUrl: '/Udemy Ethical Hacking.pdf',
+      icon: FileText
+    },
     {
       name: 'Projects',
       type: 'Folder',
