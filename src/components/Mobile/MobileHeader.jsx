@@ -9,18 +9,15 @@ export function MobileHeader() {
     });
   };
 
-  const downloadResume = () => {
-    const file = {
-      name: "AbelThomas.pdf",
-      downloadUrl: "/AbelThomas.pdf",
-    };
-    const link = document.createElement("a");
-    link.href = file.downloadUrl;
-    link.download = file.name;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+const downloadResume = () => {
+  const link = document.createElement("a");
+  link.href = "/AbelThomas.pdf";
+  link.setAttribute("download", "AbelThomas.pdf");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
 
   return (
     <section className="min-h-screen bg-black flex flex-col items-center justify-center px-6 relative overflow-hidden">
