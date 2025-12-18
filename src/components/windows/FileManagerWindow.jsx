@@ -18,9 +18,17 @@ export function FileManagerWindow() {
     {
       name: 'Ethical Hacking Certificate - Udemy.pdf',
       type: 'PDF Document',
-      size: '156 KB',
+      size: '99 KB',
       modified: '2025-01-10',
       downloadUrl: '/Udemy-Ethical-Hacking.pdf',
+      icon: FileText
+    },
+    {
+      name: 'Certified Cyber Security Analyst - RedTeam360.pdf',
+      type: 'PDF Document',
+      size: '89 KB',
+      modified: '2025-01-10',
+      downloadUrl: '/certificate.pdf',
       icon: FileText
     },
     {
