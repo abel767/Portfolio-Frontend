@@ -17,7 +17,7 @@ export function MobileCertificates() {
       downloadUrl: '/AbelThomas.pdf',
     },
     {
-      name: 'CICSA Certification',
+      name: 'CSA Certification',
       title: 'certified Cyber Security Analyst',
       organization: 'RedTeam360',
       date: 'January 2024',
