@@ -18,9 +18,9 @@ export function MobileCertificates() {
     },
     {
       name: 'CICSA Certification',
-      title: 'Certified IT Infrastructure & Cyber SOC Analyst',
-      organization: 'RedTeam Hacker Academy',
-      date: 'January 2025',
+      title: 'certified Cyber Security Analyst',
+      organization: 'RedTeam360',
+      date: 'January 2024',
       size: '89 KB',
       downloadUrl: '/certificate.pdf',
     },

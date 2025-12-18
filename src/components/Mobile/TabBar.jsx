@@ -10,6 +10,7 @@ export function TabBar() {
     { id: "about", label: "About" },
     { id: "projects", label: "Projects" },
     { id: "skills", label: "Skills" },
+    { id: "certificates", label: "Certificates" },
     { id: "contact", label: "Contact" },
   ];
   
