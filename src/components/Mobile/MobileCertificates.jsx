@@ -9,14 +9,6 @@ export function MobileCertificates() {
 
   const certificates = [
     {
-      name: 'Resume',
-      title: 'Professional Resume',
-      organization: 'Abel Thomas',
-      date: 'January 2025',
-      size: '72 KB',
-      downloadUrl: '/AbelThomas.pdf',
-    },
-    {
       name: 'CSA Certification',
       title: 'certified Cyber Security Analyst',
       organization: 'RedTeam360',
