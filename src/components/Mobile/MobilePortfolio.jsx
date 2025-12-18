@@ -3,6 +3,7 @@ import { MobileHeader } from "./MobileHeader";
 import { MobileAbout } from "./MobileAbout";
 import { MobileProjects } from "./MobileProjects";
 import { MobileSkills } from "./MobileSkills";
+import { MobileCertificates } from "./MobileCertificates";
 import { MobileContact } from "./MobileContact";
 
 export function MobilePortfolio() {
@@ -10,27 +11,31 @@ export function MobilePortfolio() {
     <div className="bg-black text-white w-full overflow-visible">
       {/* TabBar */}
       <TabBar />
-
+      
       {/* Header with grid */}
       <MobileHeader />
-
+      
       {/* Sections */}
       <section id="about">
         <MobileAbout />
       </section>
-
+      
       <section id="projects">
         <MobileProjects />
       </section>
-
+      
       <section id="skills">
         <MobileSkills />
       </section>
-
+      
+      <section id="certificates">
+        <MobileCertificates />
+      </section>
+      
       <section id="contact">
         <MobileContact />
       </section>
-
+      
       {/* Footer */}
       <footer className="bg-black border-t border-white/10 py-8 px-6 mt-8">
         <div className="max-w-2xl mx-auto text-center">
